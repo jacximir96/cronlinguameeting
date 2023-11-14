@@ -1,0 +1,8 @@
+/nbproject/
+test/
+dataLogs/
+vendor/
+linguameetingBD/
+composer.lock
+.idea/
+.DS_Store

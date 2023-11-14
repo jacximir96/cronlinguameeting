@@ -1,0 +1,22 @@
+{
+	"name": "wilowi/linguameeting",
+	"description": "Cron Tasks for LinguaMeeting",
+	"authors": [
+		{
+			"name": "Sandra Campos",
+			"email": "admin@wilowi.com",
+			"role": "Developer",
+			"homepage":"https://www.wilowi.com"
+		}
+	],
+	"require":{
+		"phpmailer/phpmailer": "6.2.*",
+		"smarty/smarty": "3.1.31",
+		"setasign/fpdi-fpdf": "2.0.*",
+		"firebase/php-jwt": "2.*",
+		"phpoffice/phpword": "*"
+	},
+	"config":{
+		"vendor-dir": "vendor"
+	}
+}
