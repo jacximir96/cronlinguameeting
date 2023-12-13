@@ -9,8 +9,8 @@
  *
  * @author Sandra <wilowi.com>
  */
-class emailsSessionsModel extends baseModel{	
-	
+class emailsSessionsModel extends baseModel
+{
 	private $id_email_session = 0;
 	private $id_user_receiver = 0;
 	private $email_receiver = '';
@@ -19,19 +19,20 @@ class emailsSessionsModel extends baseModel{
 	private $attach = '';
 	private $date_send_mes = null;
 	private $type_message = '';
-	
-	function __construct() {
 
+	function __construct()
+	{
 		parent::__construct();
-		parent::setTable('lm_emails_sessions');
+		parent::setTable('emails_session');
 	}
-	
-	public function select($where = '', $as = '', $select = '*', $join = '') {
+
+	public function select($where = '', $as = '', $select = '*', $join = '')
+	{
 		return parent::select($where, $as, $select, $join);
 	}
-	
-	public function add($indices='', $values='') {
-		
+
+	public function add($indices = '', $values = '')
+	{
 		$first = true;
 
 		if (!empty($this->id_user_receiver)) {
@@ -44,7 +45,7 @@ class emailsSessionsModel extends baseModel{
 				$values .= "," . $this->id_user_receiver;
 			}
 		}
-		
+
 		if (!empty($this->email_receiver)) {
 			if ($first) {
 				$indices .= "email_receiver";
@@ -66,7 +67,7 @@ class emailsSessionsModel extends baseModel{
 				$values .= ",'" . $this->subject_mail . "'";
 			}
 		}
-		
+
 		if (!empty($this->body_mail)) {
 			if ($first) {
 				$indices .= "body_mail";
@@ -77,7 +78,7 @@ class emailsSessionsModel extends baseModel{
 				$values .= ",'" . $this->body_mail . "'";
 			}
 		}
-		
+
 		if (!empty($this->attach)) {
 			if ($first) {
 				$indices .= "attach";
@@ -88,7 +89,7 @@ class emailsSessionsModel extends baseModel{
 				$values .= ",'" . $this->attach . "'";
 			}
 		}
-		
+
 
 		if (!empty($this->date_send_mes)) {
 			if ($first) {
@@ -100,7 +101,7 @@ class emailsSessionsModel extends baseModel{
 				$values .= ",'" . $this->date_send_mes . "'";
 			}
 		}
-		
+
 		if (!empty($this->type_message)) {
 			if ($first) {
 				$indices .= "type_message";
@@ -111,84 +112,93 @@ class emailsSessionsModel extends baseModel{
 				$values .= ",'" . $this->type_message . "'";
 			}
 		}
-		
-		
+
+
 		return parent::add($indices, $values);
 	}
 
-	public function delete($where) {
+	public function delete($where)
+	{
 		return parent::delete($where);
 	}
-	
-	public function getId_email_session() {
-            return $this->id_email_session;
-        }
 
-        public function getId_user_receiver() {
-            return $this->id_user_receiver;
-        }
+	public function getId_email_session()
+	{
+		return $this->id_email_session;
+	}
 
-        public function getEmail_receiver() {
-            return $this->email_receiver;
-        }
+	public function getId_user_receiver()
+	{
+		return $this->id_user_receiver;
+	}
 
-        public function getSubject_mail() {
-            return $this->subject_mail;
-        }
+	public function getEmail_receiver()
+	{
+		return $this->email_receiver;
+	}
 
-        public function getBody_mail() {
-            return $this->body_mail;
-        }
+	public function getSubject_mail()
+	{
+		return $this->subject_mail;
+	}
 
-        public function getAttach() {
-            return $this->attach;
-        }
+	public function getBody_mail()
+	{
+		return $this->body_mail;
+	}
 
-        public function getDate_send_mes() {
-            return $this->date_send_mes;
-        }
+	public function getAttach()
+	{
+		return $this->attach;
+	}
 
-        public function getType_message() {
-            return $this->type_message;
-        }
+	public function getDate_send_mes()
+	{
+		return $this->date_send_mes;
+	}
 
-        public function setId_email_session($id_email_session): void {
-            $this->id_email_session = $id_email_session;
-        }
+	public function getType_message()
+	{
+		return $this->type_message;
+	}
 
-        public function setId_user_receiver($id_user_receiver): void {
-            $this->id_user_receiver = $id_user_receiver;
-        }
+	public function setId_email_session($id_email_session): void
+	{
+		$this->id_email_session = $id_email_session;
+	}
 
-        public function setEmail_receiver($email_receiver): void {
-            $this->email_receiver = $email_receiver;
-        }
+	public function setId_user_receiver($id_user_receiver): void
+	{
+		$this->id_user_receiver = $id_user_receiver;
+	}
 
-        public function setSubject_mail($subject_mail): void {
-            $this->subject_mail = $subject_mail;
-        }
+	public function setEmail_receiver($email_receiver): void
+	{
+		$this->email_receiver = $email_receiver;
+	}
 
-        public function setBody_mail($body_mail): void {
-            $this->body_mail = $body_mail;
-        }
+	public function setSubject_mail($subject_mail): void
+	{
+		$this->subject_mail = $subject_mail;
+	}
 
-        public function setAttach($attach): void {
-            $this->attach = $attach;
-        }
+	public function setBody_mail($body_mail): void
+	{
+		$this->body_mail = $body_mail;
+	}
 
-        public function setDate_send_mes($date_send_mes): void {
-            $this->date_send_mes = $date_send_mes;
-        }
+	public function setAttach($attach): void
+	{
+		$this->attach = $attach;
+	}
 
-        public function setType_message($type_message): void {
-            $this->type_message = $type_message;
-        }
+	public function setDate_send_mes($date_send_mes): void
+	{
+		$this->date_send_mes = $date_send_mes;
+	}
 
-
-
-		
-	
-
-
-	
+	public function setType_message($type_message): void
+	{
+		$this->type_message = $type_message;
+	}
 }

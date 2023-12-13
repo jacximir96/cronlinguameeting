@@ -11,20 +11,20 @@
  */
 class zoomMeetingsModel extends baseModel{
 	
-	private $id_zoom_meeting = 0;
-	private $id_user = 0;
+	private $id = 0;
+	private $user_id = 0;
 	private $zoom_id = '';
 	private $uuid = '';
 	private $start_url = '';
 	private $join_url = '';
-	private $date_ini_meeting = '';
-	private $date_end_meeting = '';
-	private $active_meeting = 1;
+	private $start_date = '';
+	private $start_end = '';
+	private $is_active = 1;
 	
 	function __construct() {
 
 		parent::__construct();
-		parent::setTable('lm_zoom_meetings');
+		parent::setTable('zoom_meetings');
 	}
 	
 	public function select($where = '', $as = '', $select = '*', $join = '') {
@@ -35,25 +35,25 @@ class zoomMeetingsModel extends baseModel{
 		
 		$first = true;
 		
-		if (!empty($this->id_zoom_meeting)) {
+		if (!empty($this->id)) {
 			if ($first) {
-				$indices .= "id_zoom_meeting";
-				$values .= $this->id_zoom_meeting;
+				$indices .= "id";
+				$values .= $this->id;
 				$first = false;
 			} else {
-				$indices .= ",id_zoom_meeting";
-				$values .= "," . $this->id_zoom_meeting;
+				$indices .= ",id";
+				$values .= "," . $this->id;
 			}
 		}
 
-		if (!empty($this->id_user)) {
+		if (!empty($this->user_id)) {
 			if ($first) {
-				$indices .= "id_user";
-				$values .= $this->id_user;
+				$indices .= "user_id";
+				$values .= $this->user_id;
 				$first = false;
 			} else {
-				$indices .= ",id_user";
-				$values .= "," . $this->id_user;
+				$indices .= ",user_id";
+				$values .= "," . $this->user_id;
 			}
 		}
 
@@ -101,35 +101,35 @@ class zoomMeetingsModel extends baseModel{
 			}
 		}
 		
-		if (!empty($this->date_ini_meeting)) {
+		if (!empty($this->start_date)) {
 			if ($first) {
-				$indices .= "date_ini_meeting";
-				$values .= "'" . $this->date_ini_meeting . "'";
+				$indices .= "start_date";
+				$values .= "'" . $this->start_date . "'";
 				$first = false;
 			} else {
-				$indices .= ",date_ini_meeting";
-				$values .= ",'" . $this->date_ini_meeting . "'";
+				$indices .= ",start_date";
+				$values .= ",'" . $this->start_date . "'";
 			}
 		}
 		
-		if (!empty($this->date_end_meeting)) {
+		if (!empty($this->start_end)) {
 			if ($first) {
-				$indices .= "date_end_meeting";
-				$values .= "'" . $this->date_end_meeting . "'";
+				$indices .= "start_end";
+				$values .= "'" . $this->start_end . "'";
 				$first = false;
 			} else {
-				$indices .= ",date_end_meeting";
-				$values .= ",'" . $this->date_end_meeting . "'";
+				$indices .= ",start_end";
+				$values .= ",'" . $this->start_end . "'";
 			}
 		}
 		
 		if ($first) {
-			$indices .= "active_meeting";
-			$values .= "'" . $this->active_meeting . "'";
+			$indices .= "is_active";
+			$values .= "'" . $this->is_active . "'";
 			$first = false;
 		} else {
-			$indices .= ",active_meeting";
-			$values .= ",'" . $this->active_meeting . "'";
+			$indices .= ",is_active";
+			$values .= ",'" . $this->is_active . "'";
 		}
 
 
@@ -143,7 +143,7 @@ class zoomMeetingsModel extends baseModel{
 	public function update($campos='', $where = '') {
 		
 		
-		$where = 'id_user='.$this->id_user;
+		$where = 'user_id='.$this->user_id;
 		$first = true;
 		
 		if(!empty($this->zoom_id)){
@@ -186,31 +186,31 @@ class zoomMeetingsModel extends baseModel{
 			
 		}
 		
-		if(!empty($this->date_ini_meeting)){
+		if(!empty($this->start_date)){
 			if ($first) {
-				$campos.=" date_ini_meeting='".$this->date_ini_meeting."'";
+				$campos.=" start_date='".$this->start_date."'";
 				$first = false;
 			} else {
-				$campos.=", date_ini_meeting='".$this->date_ini_meeting."'";
+				$campos.=", start_date='".$this->start_date."'";
 			}
 			
 		}
 		
-		if(!empty($this->date_end_meeting)){
+		if(!empty($this->start_end)){
 			if ($first) {
-				$campos.=" date_end_meeting='".$this->date_end_meeting."'";
+				$campos.=" start_end='".$this->start_end."'";
 				$first = false;
 			} else {
-				$campos.=", date_end_meeting='".$this->date_end_meeting."'";
+				$campos.=", start_end='".$this->start_end."'";
 			}
 			
 		}
 				
 		if ($first) {
-			$campos .= " active_meeting='" . $this->active_meeting . "'";
+			$campos .= " is_active='" . $this->is_active . "'";
 			$first = false;
 		} else {
-			$campos .= ", active_meeting='" . $this->active_meeting . "'";
+			$campos .= ", is_active='" . $this->is_active . "'";
 		}
 
 		return parent::update($campos, $where);
@@ -218,11 +218,11 @@ class zoomMeetingsModel extends baseModel{
 
 	
 	function getId_zoom_meeting() {
-		return $this->id_zoom_meeting;
+		return $this->id;
 	}
 
 	function getId_user() {
-		return $this->id_user;
+		return $this->user_id;
 	}
 
 	function getZoom_id() {
@@ -242,23 +242,23 @@ class zoomMeetingsModel extends baseModel{
 	}
 
 	function getDate_ini_meeting() {
-		return $this->date_ini_meeting;
+		return $this->start_date;
 	}
 
 	function getDate_end_meeting() {
-		return $this->date_end_meeting;
+		return $this->start_end;
 	}
 
 	function getActive_meeting() {
-		return $this->active_meeting;
+		return $this->is_active;
 	}
 
-	function setId_zoom_meeting($id_zoom_meeting) {
-		$this->id_zoom_meeting = $id_zoom_meeting;
+	function setId_zoom_meeting($id) {
+		$this->id = $id;
 	}
 
-	function setId_user($id_user) {
-		$this->id_user = $id_user;
+	function setId_user($user_id) {
+		$this->user_id = $user_id;
 	}
 
 	function setZoom_id($zoom_id) {
@@ -277,16 +277,16 @@ class zoomMeetingsModel extends baseModel{
 		$this->join_url = $join_url;
 	}
 
-	function setDate_ini_meeting($date_ini_meeting) {
-		$this->date_ini_meeting = $date_ini_meeting;
+	function setDate_ini_meeting($start_date) {
+		$this->start_date = $start_date;
 	}
 
-	function setDate_end_meeting($date_end_meeting) {
-		$this->date_end_meeting = $date_end_meeting;
+	function setDate_end_meeting($start_end) {
+		$this->start_end = $start_end;
 	}
 
-	function setActive_meeting($active_meeting) {
-		$this->active_meeting = $active_meeting;
+	function setActive_meeting($is_active) {
+		$this->is_active = $is_active;
 	}
 
 

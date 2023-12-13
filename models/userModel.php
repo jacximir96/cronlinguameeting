@@ -1,55 +1,42 @@
 <?php
 
-/* 
- * Developed by wilowi
+/**
+ * Description of enrollmentSessionModel
+ *
+ * @author Jacximir
  */
 
-
-class userModel extends baseModel{
+class userModel extends baseModel {
 	
-	
-	private $id_user = 0;
-	private $email = '';
-	private $password = '';
-	private $rol = 0;
+	private $id;
 	private $active = 0;
-	private $name_user = '';
-	private $lastname_user = '';
-	private $nickname = '';
-	private $id_zone = 0;
-	private $id_country = 0;
-	private $id_country_live = 0;
-	private $description = '';
-	private $url_photo = '';
-	private $is_private = 0;
-	private $lingro_student = 0;
-	private $phone = '';
-	private $whatsapp = '';
-	private $created = null;
-	private $created_by = '';
-	private $modified = null;
-	private $modified_by = '';
-	private $erased = 0;
-	private $date_erased = null;
-	private $attempts = 0;
-	private $blocked = 0;
-	private $last_login = '';
-	private $who_login = '';
-	private $hash_remember = '';
-	private $skype = '';
-	private $coach_trainee = 0;
-	private $coach_flex = 0;
-	private $emailsReception = 0;
-        private $emailsMarketing = 0;
+	private $country_id = 0;
+	private $country_live_id = 0;
+	private $created_at = '';
+	private $deleted_at = '';
+	private $email = '';
+	private $email_marketing = 0;
+	private $email_reception = 0;
+	private $email_verified_at = '';
 	private $internal_comment = '';
-	private $coach_flex_assigned = 0;
-	private $coach_pagador = 0;
-        PRIVATE $coach_level = 0;
+	private $lastname = '';
+	private $lingro_student = 0;
+	private $locked = 0;
+	private $name = '';
+	private $nickname = '';
+	private $password = '';
+	private $phone = '';
+	private $remember_token = '';
+	private $skype = '';
+	private $timezone_id = 0;
+	private $updated_at = '';
+	private $url_photo = '';
+	private $whatsapp = '';
 	
 	function __construct() {
 
 		parent::__construct();
-		parent::setTable('lm_users');
+		parent::setTable('user');
 	}
 	
 	public function select($where = '', $as = '', $select = '*', $join = '') {
@@ -64,6 +51,61 @@ class userModel extends baseModel{
 
 		$first = true;
 
+		if (!empty($this->active)) {
+			if ($first) {
+				$indices .= "active";
+				$valores .= $this->active;
+				$first = false;
+			} else {
+				$indices .= ",active";
+				$valores .= "," . $this->active;
+			}
+		}
+
+		if (!empty($this->country_id)) {
+			if ($first) {
+				$indices .= "country_id";
+				$valores .= $this->country_id;
+				$first = false;
+			} else {
+				$indices .= ",country_id";
+				$valores .= "," . $this->country_id;
+			}
+		}
+
+		if (!empty($this->country_live_id)) {
+			if ($first) {
+				$indices .= "country_live_id";
+				$valores .= $this->country_live_id;
+				$first = false;
+			} else {
+				$indices .= ",country_live_id";
+				$valores .= "," . $this->country_live_id;
+			}
+		}
+
+		if (!empty($this->created_at)) {
+			if ($first) {
+				$indices .= "created_at";
+				$valores .= "'" . $this->created_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",created_at";
+				$valores .= ",'" . $this->created_at . "'";
+			}
+		}
+
+		if (!empty($this->deleted_at)) {
+			if ($first) {
+				$indices .= "deleted_at";
+				$valores .= "'" . $this->deleted_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",deleted_at";
+				$valores .= ",'" . $this->deleted_at . "'";
+			}
+		}
+
 		if (!empty($this->email)) {
 			if ($first) {
 				$indices .= "email";
@@ -74,238 +116,37 @@ class userModel extends baseModel{
 				$valores .= ",'" . $this->email . "'";
 			}
 		}
-		
-		if (!empty($this->password)) {
+
+		if (!empty($this->email_marketing)) {
 			if ($first) {
-				$indices .= "password";
-				$valores .= "'" . $this->password . "'";
+				$indices .= "email_marketing";
+				$valores .= $this->email_marketing;
 				$first = false;
 			} else {
-				$indices .= ",password";
-				$valores .= ",'" . $this->password . "'";
-			}
-		}
-		
-		if (!empty($this->rol)) {
-			if ($first) {
-				$indices .= "rol";
-				$valores .= $this->rol;
-				$first = false;
-			} else {
-				$indices .= ",rol";
-				$valores .= "," . $this->rol;
-			}
-		}
-		
-		
-		if (!empty($this->name_user)) {
-			if ($first) {
-				$indices .= "name_user";
-				$valores .= "'" . $this->name_user . "'";
-				$first = false;
-			} else {
-				$indices .= ",name_user";
-				$valores .= ",'" . $this->name_user . "'";
-			}
-		}
-		
-		if (!empty($this->lastname_user)) {
-			if ($first) {
-				$indices .= "lastname_user";
-				$valores .= "'" . $this->lastname_user . "'";
-				$first = false;
-			} else {
-				$indices .= ",lastname_user";
-				$valores .= ",'" . $this->lastname_user . "'";
-			}
-		}
-		
-		if (!empty($this->nickname)) {
-			if ($first) {
-				$indices .= "nickname";
-				$valores .= "'" . $this->nickname . "'";
-				$first = false;
-			} else {
-				$indices .= ",nickname";
-				$valores .= ",'" . $this->nickname . "'";
+				$indices .= ",email_marketing";
+				$valores .= "," . $this->email_marketing;
 			}
 		}
 
-
-		if (!empty($this->id_zone)) {
+		if (!empty($this->email_reception)) {
 			if ($first) {
-				$indices .= "id_zone";
-				$valores .= $this->id_zone;
+				$indices .= "email_reception";
+				$valores .= $this->email_reception;
 				$first = false;
 			} else {
-				$indices .= ",id_zone";
-				$valores .= "," . $this->id_zone;
-			}
-		}
-		
-		if (!empty($this->id_country)) {
-			if ($first) {
-				$indices .= "id_country";
-				$valores .= $this->id_country;
-				$first = false;
-			} else {
-				$indices .= ",id_country";
-				$valores .= "," . $this->id_country;
-			}
-		}
-		
-		if (!empty($this->id_country_live)) {
-			if ($first) {
-				$indices .= "id_country_live";
-				$valores .= $this->id_country_live;
-				$first = false;
-			} else {
-				$indices .= ",id_country_live";
-				$valores .= "," . $this->id_country_live;
+				$indices .= ",email_reception";
+				$valores .= "," . $this->email_reception;
 			}
 		}
 
-
-		if (!empty($this->description)) {
+		if (!empty($this->email_verified_at)) {
 			if ($first) {
-				$indices .= "description";
-				$valores .= "'" . $this->description . "'";
+				$indices .= "email_verified_at";
+				$valores .= "'" . $this->email_verified_at . "'";
 				$first = false;
 			} else {
-				$indices .= ",description";
-				$valores .= ",'" . $this->description . "'";
-			}
-		}
-
-		if (!empty($this->url_photo)) {
-			if ($first) {
-				$indices .= "url_photo";
-				$valores .= "'" . $this->url_photo . "'";
-				$first = false;
-			} else {
-				$indices .= ",url_photo";
-				$valores .= ",'" . $this->url_photo . "'";
-			}
-		}
-		
-		if (!empty($this->phone)) {
-			if ($first) {
-				$indices .= "phone";
-				$valores .= "'" . $this->phone . "'";
-				$first = false;
-			} else {
-				$indices .= ",phone";
-				$valores .= ",'" . $this->phone . "'";
-			}
-		}
-		
-		if (!empty($this->whatsapp)) {
-			if ($first) {
-				$indices .= "whatsapp";
-				$valores .= "'" . $this->whatsapp . "'";
-				$first = false;
-			} else {
-				$indices .= ",whatsapp";
-				$valores .= ",'" . $this->whatsapp . "'";
-			}
-		}
-
-		if (!empty($this->created)) {
-			if ($first) {
-				$indices .= "created";
-				$valores .= "'" . $this->created . "'";
-				$first = false;
-			} else {
-				$indices .= ",created";
-				$valores .= ",'" . $this->created . "'";
-			}
-		}
-		
-		if (!empty($this->created_by)) {
-			if ($first) {
-				$indices .= "created_by";
-				$valores .= "'" . $this->created_by . "'";
-				$first = false;
-			} else {
-				$indices .= ",created_by";
-				$valores .= ",'" . $this->created_by . "'";
-			}
-		}
-		
-		if (!empty($this->modified)) {
-			if ($first) {
-				$indices .= "modified";
-				$valores .= "'" . $this->modified . "'";
-				$first = false;
-			} else {
-				$indices .= ",modified";
-				$valores .= ",'" . $this->modified . "'";
-			}
-		}
-		
-		if (!empty($this->modified_by)) {
-			if ($first) {
-				$indices .= "modified_by";
-				$valores .= "'" . $this->modified_by . "'";
-				$first = false;
-			} else {
-				$indices .= ",modified_by";
-				$valores .= ",'" . $this->modified_by . "'";
-			}
-		}
-		
-		if (!empty($this->date_erased)) {
-			if ($first) {
-				$indices .= "date_erased";
-				$valores .= "'" . $this->date_erased . "'";
-				$first = false;
-			} else {
-				$indices .= ",date_erased";
-				$valores .= ",'" . $this->date_erased . "'";
-			}
-		}
-		
-		if (!empty($this->last_login)) {
-			if ($first) {
-				$indices .= "last_login";
-				$valores .= "'" . $this->last_login . "'";
-				$first = false;
-			} else {
-				$indices .= ",last_login";
-				$valores .= ",'" . $this->last_login . "'";
-			}
-		}
-		
-		if (!empty($this->who_login)) {
-			if ($first) {
-				$indices .= "who_login";
-				$valores .= "'" . $this->who_login . "'";
-				$first = false;
-			} else {
-				$indices .= ",who_login";
-				$valores .= ",'" . $this->who_login . "'";
-			}
-		}
-		
-		if (!empty($this->hash_remember)) {
-			if ($first) {
-				$indices .= "hash_remember";
-				$valores .= "'" . $this->hash_remember . "'";
-				$first = false;
-			} else {
-				$indices .= ",hash_remember";
-				$valores .= ",'" . $this->hash_remember . "'";
-			}
-		}
-		
-		if (!empty($this->skype)) {
-			if ($first) {
-				$indices .= "skype";
-				$valores .= "'" . $this->skype . "'";
-				$first = false;
-			} else {
-				$indices .= ",skype";
-				$valores .= ",'" . $this->skype . "'";
+				$indices .= ",email_verified_at";
+				$valores .= ",'" . $this->email_verified_at . "'";
 			}
 		}
 
@@ -319,25 +160,148 @@ class userModel extends baseModel{
 				$valores .= ",'" . $this->internal_comment . "'";
 			}
 		}
-                
-                if (!empty($this->coach_level)) {
+
+		if (!empty($this->lastname)) {
 			if ($first) {
-				$indices .= "coach_level";
-				$valores .= $this->coach_level;
+				$indices .= "lastname";
+				$valores .= "'" . $this->lastname . "'";
 				$first = false;
 			} else {
-				$indices .= ",coach_level";
-				$valores .= "," . $this->coach_level;
+				$indices .= ",lastname";
+				$valores .= ",'" . $this->lastname . "'";
 			}
 		}
 
-		if ($first) {
-			$indices .= "active,is_private,lingro_student,erased,attempts,blocked";
-			$valores .= $this->active.','.$this->is_private.','.$this->lingro_student.','.$this->erased.','.$this->attempts.','.$this->blocked;
-			$first = false;
-		} else {
-			$indices .= ",active,is_private,lingro_student,erased,attempts,blocked";
-			$valores .= "," . $this->active.','.$this->is_private.','.$this->lingro_student.','.$this->erased.','.$this->attempts.','.$this->blocked;
+		if (!empty($this->lingro_student)) {
+			if ($first) {
+				$indices .= "lingro_student";
+				$valores .= $this->lingro_student;
+				$first = false;
+			} else {
+				$indices .= ",lingro_student";
+				$valores .= "," . $this->lingro_student;
+			}
+		}
+
+		if (!empty($this->locked)) {
+			if ($first) {
+				$indices .= "locked";
+				$valores .= $this->locked;
+				$first = false;
+			} else {
+				$indices .= ",locked";
+				$valores .= "," . $this->locked;
+			}
+		}
+
+		if (!empty($this->name)) {
+			if ($first) {
+				$indices .= "name";
+				$valores .= "'" . $this->name . "'";
+				$first = false;
+			} else {
+				$indices .= ",name";
+				$valores .= ",'" . $this->name . "'";
+			}
+		}
+
+		if (!empty($this->nickname)) {
+			if ($first) {
+				$indices .= "nickname";
+				$valores .= "'" . $this->nickname . "'";
+				$first = false;
+			} else {
+				$indices .= ",nickname";
+				$valores .= ",'" . $this->nickname . "'";
+			}
+		}
+
+		if (!empty($this->password)) {
+			if ($first) {
+				$indices .= "password";
+				$valores .= "'" . $this->password . "'";
+				$first = false;
+			} else {
+				$indices .= ",password";
+				$valores .= ",'" . $this->password . "'";
+			}
+		}
+
+		if (!empty($this->phone)) {
+			if ($first) {
+				$indices .= "phone";
+				$valores .= "'" . $this->phone . "'";
+				$first = false;
+			} else {
+				$indices .= ",phone";
+				$valores .= ",'" . $this->phone . "'";
+			}
+		}
+
+		if (!empty($this->remember_token)) {
+			if ($first) {
+				$indices .= "remember_token";
+				$valores .= "'" . $this->remember_token . "'";
+				$first = false;
+			} else {
+				$indices .= ",remember_token";
+				$valores .= ",'" . $this->remember_token . "'";
+			}
+		}
+
+		if (!empty($this->skype)) {
+			if ($first) {
+				$indices .= "skype";
+				$valores .= "'" . $this->skype . "'";
+				$first = false;
+			} else {
+				$indices .= ",skype";
+				$valores .= ",'" . $this->skype . "'";
+			}
+		}
+
+		if (!empty($this->timezone_id)) {
+			if ($first) {
+				$indices .= "timezone_id";
+				$valores .= $this->timezone_id;
+				$first = false;
+			} else {
+				$indices .= ",timezone_id";
+				$valores .= "," . $this->timezone_id;
+			}
+		}
+
+		if (!empty($this->updated_at)) {
+			if ($first) {
+				$indices .= "updated_at";
+				$valores .= "'" . $this->updated_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",updated_at";
+				$valores .= ",'" . $this->updated_at . "'";
+			}
+		}
+
+		if (!empty($this->url_photo)) {
+			if ($first) {
+				$indices .= "url_photo";
+				$valores .= "'" . $this->url_photo . "'";
+				$first = false;
+			} else {
+				$indices .= ",url_photo";
+				$valores .= ",'" . $this->url_photo . "'";
+			}
+		}
+
+		if (!empty($this->whatsapp)) {
+			if ($first) {
+				$indices .= "whatsapp";
+				$valores .= "'" . $this->whatsapp . "'";
+				$first = false;
+			} else {
+				$indices .= ",whatsapp";
+				$valores .= ",'" . $this->whatsapp . "'";
+			}
 		}
 
 		return parent::add($indices, $valores);
@@ -345,9 +309,54 @@ class userModel extends baseModel{
 	
 	public function update($campos='', $where='') {
 		
-		$where = 'id_user='.$this->id_user;
+		$where = 'id='.$this->id;
 		$first = true;
+
+		if(!empty($this->active)){
+			if ($first) {
+				$campos.=" active=".$this->active;
+				$first = false;
+			} else {
+				$campos.=", active=".$this->active;
+			}
+		}
+
+		if(!empty($this->country_id)){
+			if ($first) {
+				$campos.=" country_id=".$this->country_id;
+				$first = false;
+			} else {
+				$campos.=", country_id=".$this->country_id;
+			}
+		}
+
+		if(!empty($this->country_live_id)){
+			if ($first) {
+				$campos.=" country_live_id=".$this->country_live_id;
+				$first = false;
+			} else {
+				$campos.=", country_live_id=".$this->country_live_id;
+			}
+		}
 		
+		if(!empty($this->created_at)){
+			if ($first) {
+				$campos.=" created_at='".$this->created_at."'";
+				$first = false;
+			} else {
+				$campos.=", created_at='".$this->created_at."'";
+			}
+		}
+
+		if(!empty($this->deleted_at)){
+			if ($first) {
+				$campos.=" deleted_at='".$this->deleted_at."'";
+				$first = false;
+			} else {
+				$campos.=", deleted_at='".$this->deleted_at."'";
+			}
+		}
+
 		if(!empty($this->email)){
 			if ($first) {
 				$campos.=" email='".$this->email."'";
@@ -355,46 +364,80 @@ class userModel extends baseModel{
 			} else {
 				$campos.=", email='".$this->email."'";
 			}
-			
 		}
-		if(!empty($this->password)){
+
+		if(!empty($this->email_marketing)){
 			if ($first) {
-				$campos.=" password='".$this->password."'";
+				$campos.=" email_marketing=".$this->email_marketing;
 				$first = false;
 			} else {
-				$campos.=", password='".$this->password."'";
+				$campos.=", email_marketing=".$this->email_marketing;
 			}
-			
 		}
-		if(!empty($this->rol)){
+
+		if(!empty($this->email_reception)){
 			if ($first) {
-				$campos.=" rol=".$this->rol;
+				$campos.=" email_reception=".$this->email_reception;
 				$first = false;
 			} else {
-				$campos.=", rol=".$this->rol;
+				$campos.=", email_reception=".$this->email_reception;
 			}
-			
 		}
-		if(!empty($this->name_user)){
+
+		if(!empty($this->email_verified_at)){
 			if ($first) {
-				$campos.=" name_user='".$this->name_user."'";
+				$campos.=" email_verified_at='".$this->email_verified_at."'";
 				$first = false;
 			} else {
-				$campos.=", name_user='".$this->name_user."'";
+				$campos.=", email_verified_at='".$this->email_verified_at."'";
 			}
-			
 		}
-		
-		if(!empty($this->lastname_user)){
+
+		if(!empty($this->internal_comment)){
 			if ($first) {
-				$campos.=" lastname_user='".$this->lastname_user."'";
+				$campos.=" internal_comment='".$this->internal_comment."'";
 				$first = false;
 			} else {
-				$campos.=", lastname_user='".$this->lastname_user."'";
+				$campos.=", internal_comment='".$this->internal_comment."'";
 			}
-			
 		}
-		
+
+		if(!empty($this->lastname)){
+			if ($first) {
+				$campos.=" lastname='".$this->lastname."'";
+				$first = false;
+			} else {
+				$campos.=", lastname='".$this->lastname."'";
+			}
+		}
+
+		if(!empty($this->lingro_student)){
+			if ($first) {
+				$campos.=" lingro_student=".$this->lingro_student;
+				$first = false;
+			} else {
+				$campos.=", lingro_student=".$this->lingro_student;
+			}
+		}
+
+		if(!empty($this->locked)){
+			if ($first) {
+				$campos.=" locked=".$this->locked;
+				$first = false;
+			} else {
+				$campos.=", locked=".$this->locked;
+			}
+		}
+
+		if(!empty($this->name)){
+			if ($first) {
+				$campos.=" name='".$this->name."'";
+				$first = false;
+			} else {
+				$campos.=", name='".$this->name."'";
+			}
+		}
+
 		if(!empty($this->nickname)){
 			if ($first) {
 				$campos.=" nickname='".$this->nickname."'";
@@ -402,58 +445,17 @@ class userModel extends baseModel{
 			} else {
 				$campos.=", nickname='".$this->nickname."'";
 			}
-			
 		}
-		if(!empty($this->id_zone)){
+
+		if(!empty($this->password)){
 			if ($first) {
-				$campos.=" id_zone=".$this->id_zone;
+				$campos.=" password='".$this->password."'";
 				$first = false;
 			} else {
-				$campos.=", id_zone=".$this->id_zone;
+				$campos.=", password='".$this->password."'";
 			}
-			
 		}
-		
-		if(!empty($this->id_country)){
-			if ($first) {
-				$campos.=" id_country=".$this->id_country;
-				$first = false;
-			} else {
-				$campos.=", id_country=".$this->id_country;
-			}
-			
-		}
-		
-		if(!empty($this->id_country_live)){
-			if ($first) {
-				$campos.=" id_country_live=".$this->id_country_live;
-				$first = false;
-			} else {
-				$campos.=", id_country_live=".$this->id_country_live;
-			}
-			
-		}
-		
-		if(!empty($this->description)){
-			if ($first) {
-				$campos.=" description='".$this->description."'";
-				$first = false;
-			} else {
-				$campos.=", description='".$this->description."'";
-			}
-			
-		}
-		
-		if(!empty($this->url_photo)){
-			if ($first) {
-				$campos.=" url_photo='".$this->url_photo."'";
-				$first = false;
-			} else {
-				$campos.=", url_photo='".$this->url_photo."'";
-			}
-			
-		}
-		
+
 		if(!empty($this->phone)){
 			if ($first) {
 				$campos.=" phone='".$this->phone."'";
@@ -461,78 +463,17 @@ class userModel extends baseModel{
 			} else {
 				$campos.=", phone='".$this->phone."'";
 			}
-			
-		}
-		
-		if(!empty($this->whatsapp)){
-			if ($first) {
-				$campos.=" whatsapp='".$this->whatsapp."'";
-				$first = false;
-			} else {
-				$campos.=", whatsapp='".$this->whatsapp."'";
-			}
-			
 		}
 
-		if(!empty($this->modified)){
+		if(!empty($this->remember_token)){
 			if ($first) {
-				$campos.=" modified='".$this->modified."'";
+				$campos.=" remember_token='".$this->remember_token."'";
 				$first = false;
 			} else {
-				$campos.=", modified='".$this->modified."'";
+				$campos.=", remember_token='".$this->remember_token."'";
 			}
-			
 		}
-		if(!empty($this->modified_by)){
-			if ($first) {
-				$campos.=" modified_by='".$this->modified_by."'";
-				$first = false;
-			} else {
-				$campos.=", modified_by='".$this->modified_by."'";
-			}
-			
-		}
-		
-		if(!empty($this->date_erased)){
-			if ($first) {
-				$campos.=" date_erased='".$this->date_erased."'";
-				$first = false;
-			} else {
-				$campos.=", date_erased='".$this->date_erased."'";
-			}
-			
-		}
-		
-		if(!empty($this->last_login)){
-			if ($first) {
-				$campos.=" last_login='".$this->last_login."'";
-				$first = false;
-			} else {
-				$campos.=", last_login='".$this->last_login."'";
-			}
-			
-		}
-		
-		if(!empty($this->who_login)){
-			if ($first) {
-				$campos.=" who_login='".$this->who_login."'";
-				$first = false;
-			} else {
-				$campos.=", who_login='".$this->who_login."'";
-			}
-			
-		}
-		
-		if(!empty($this->hash_remember)){
-			if ($first) {
-				$campos.=" hash_remember='".$this->hash_remember."'";
-				$first = false;
-			} else {
-				$campos.=", hash_remember='".$this->hash_remember."'";
-			}
-			
-		}
-		
+
 		if(!empty($this->skype)){
 			if ($first) {
 				$campos.=" skype='".$this->skype."'";
@@ -540,34 +481,48 @@ class userModel extends baseModel{
 			} else {
 				$campos.=", skype='".$this->skype."'";
 			}
-			
 		}
-                
-                if(!empty($this->coach_level)){
+
+		if(!empty($this->timezone_id)){
 			if ($first) {
-				$campos.=" coach_level=".$this->coach_level;
+				$campos.=" timezone_id=".$this->timezone_id;
 				$first = false;
 			} else {
-				$campos.=", coach_level=".$this->coach_level;
+				$campos.=", timezone_id=".$this->timezone_id;
 			}
-			
 		}
-		
-		if ($first) {
-			$campos .= " active=$this->active, is_private=$this->is_private, lingro_student=$this->lingro_student, erased=$this->erased, attempts=$this->attempts,"
-					. " blocked=$this->blocked,internal_comment='$this->internal_comment'";
-			$first = false;
-		} else {
-			$campos .= ", active=$this->active, is_private=$this->is_private, lingro_student=$this->lingro_student, erased=$this->erased, attempts=$this->attempts,"
-					. " blocked=$this->blocked,internal_comment='$this->internal_comment'";
-			
+
+		if(!empty($this->updated_at)){
+			if ($first) {
+				$campos.=" updated_at='".$this->updated_at."'";
+				$first = false;
+			} else {
+				$campos.=", updated_at='".$this->updated_at."'";
+			}
 		}
-		
-		
+
+		if(!empty($this->url_photo)){
+			if ($first) {
+				$campos.=" url_photo='".$this->url_photo."'";
+				$first = false;
+			} else {
+				$campos.=", url_photo='".$this->url_photo."'";
+			}
+		}
+
+		if(!empty($this->whatsapp)){
+			if ($first) {
+				$campos.=" whatsapp='".$this->whatsapp."'";
+				$first = false;
+			} else {
+				$campos.=", whatsapp='".$this->whatsapp."'";
+			}
+		}
+
 		return parent::update($campos, $where);
 	}
 	
-	function updateModified() {
+/* 	function updateModified() {
 
 	    $where = 'id_user=' . $this->id_user;
 
@@ -838,307 +793,439 @@ class userModel extends baseModel{
 	    $campos = " coach_pagador='".$this->coach_pagador."'";
 	    
 	    return parent::update($campos, $where);
-	}
-	
-	function getCoach_trainee() {
-		return $this->coach_trainee;
+	} */
+
+	/**
+	 * Get the value of id
+	 */ 
+	function getId()
+	{
+		return $this->id;
 	}
 
-	function setCoach_trainee($coach_trainee) {
-		$this->coach_trainee = $coach_trainee;
+	/**
+	 * Set the value of id
+	 *
+	 * @return  self
+	 */ 
+	function setId($id) : void
+	{
+		$this->id = $id;
 	}
 
-	function getCoach_flex() {
-		return $this->coach_flex;
-	}
-
-	function setCoach_flex($coach_flex) {
-		$this->coach_flex = $coach_flex;
-	}
-		
-	function getId_user() {
-		return $this->id_user;
-	}
-
-	function getEmail() {
-		return $this->email;
-	}
-
-	function getPassword() {
-		return $this->password;
-	}
-
-	function getRol() {
-		return $this->rol;
-	}
-
-	function getActive() {
+	/**
+	 * Get the value of active
+	 */ 
+	function getActive()
+	{
 		return $this->active;
 	}
 
-	function getName_user() {
-		return $this->name_user;
-	}
-
-	function getLastname_user() {
-		return $this->lastname_user;
-	}
-
-	function getNickname() {
-		return $this->nickname;
-	}
-
-	function getId_zone() {
-		return $this->id_zone;
-	}
-
-	function getId_country() {
-		return $this->id_country;
-	}
-
-	function getDescription() {
-		return $this->description;
-	}
-
-	function getUrl_photo() {
-		return $this->url_photo;
-	}
-
-	function getIs_private() {
-		return $this->is_private;
-	}
-
-	function getLingro_student() {
-		return $this->lingro_student;
-	}
-	
-	function getPhone() {
-		return $this->phone;
-	}
-
-	function getWhatsapp() {
-		return $this->whatsapp;
-	}
-
-	
-	function getCreated() {
-		return $this->created;
-	}
-
-	function getCreated_by() {
-		return $this->created_by;
-	}
-
-	function getModified() {
-		return $this->modified;
-	}
-
-	function getModified_by() {
-		return $this->modified_by;
-	}
-
-	function getErased() {
-		return $this->erased;
-	}
-
-	function getDate_erased() {
-		return $this->date_erased;
-	}
-	
-	function getAttempts() {
-		return $this->attempts;
-	}
-
-	function getBlocked() {
-		return $this->blocked;
-	}
-
-	
-	function setId_user($id_user) {
-		$this->id_user = $id_user;
-	}
-
-	function setEmail($email) {
-		$this->email = $email;
-	}
-
-	function setPassword($password) {
-		$this->password = $password;
-	}
-
-	function setRol($rol) {
-		$this->rol = $rol;
-	}
-
-	function setActive($active) {
+	/**
+	 * Set the value of active
+	 *
+	 * @return  self
+	 */ 
+	function setActive($active) : void
+	{
 		$this->active = $active;
 	}
 
-	function setName_user($name_user) {
-		$this->name_user = $name_user;
+	/**
+	 * Get the value of country_id
+	 */ 
+	function getCountry_id()
+	{
+		return $this->country_id;
 	}
 
-	function setLastname_user($lastname_user) {
-		$this->lastname_user = $lastname_user;
+	/**
+	 * Set the value of country_id
+	 *
+	 * @return  self
+	 */ 
+	function setCountry_id($country_id) : void
+	{
+		$this->country_id = $country_id;
 	}
 
-	function setNickname($nickname) {
-		$this->nickname = $nickname;
+	/**
+	 * Get the value of country_live_id
+	 */ 
+	function getCountry_live_id()
+	{
+		return $this->country_live_id;
 	}
 
-	function setId_zone($id_zone) {
-		$this->id_zone = $id_zone;
+	/**
+	 * Set the value of country_live_id
+	 *
+	 * @return  self
+	 */ 
+	function setCountry_live_id($country_live_id) : void
+	{
+		$this->country_live_id = $country_live_id;
 	}
 
-	function setId_country($id_country) {
-		$this->id_country = $id_country;
+	/**
+	 * Get the value of created_at
+	 */ 
+	function getCreated_at()
+	{
+		return $this->created_at;
 	}
 
-	function setDescription($description) {
-		$this->description = $description;
+	/**
+	 * Set the value of created_at
+	 *
+	 * @return  self
+	 */ 
+	function setCreated_at($created_at) : void
+	{
+		$this->created_at = $created_at;
 	}
 
-	function setUrl_photo($url_photo) {
-		$this->url_photo = $url_photo;
+	/**
+	 * Get the value of deleted_at
+	 */ 
+	function getDeleted_at()
+	{
+		return $this->deleted_at;
 	}
 
-	function setIs_private($is_private) {
-		$this->is_private = $is_private;
+	/**
+	 * Set the value of deleted_at
+	 *
+	 * @return  self
+	 */ 
+	function setDeleted_at($deleted_at) : void
+	{
+		$this->deleted_at = $deleted_at;
 	}
 
-	function setLingro_student($lingro_student) {
+	/**
+	 * Get the value of email
+	 */ 
+	function getEmail()
+	{
+		return $this->email;
+	}
+
+	/**
+	 * Set the value of email
+	 *
+	 * @return  self
+	 */ 
+	function setEmail($email) : void
+	{
+		$this->email = $email;
+	}
+
+	/**
+	 * Get the value of email_marketing
+	 */ 
+	function getEmail_marketing()
+	{
+		return $this->email_marketing;
+	}
+
+	/**
+	 * Set the value of email_marketing
+	 *
+	 * @return  self
+	 */ 
+	function setEmail_marketing($email_marketing) : void
+	{
+		$this->email_marketing = $email_marketing;
+	}
+
+	/**
+	 * Get the value of email_reception
+	 */ 
+	function getEmail_reception()
+	{
+		return $this->email_reception;
+	}
+
+	/**
+	 * Set the value of email_reception
+	 *
+	 * @return  self
+	 */ 
+	function setEmail_reception($email_reception) : void
+	{
+		$this->email_reception = $email_reception;
+	}
+
+	/**
+	 * Get the value of email_verified_at
+	 */ 
+	function getEmail_verified_at()
+	{
+		return $this->email_verified_at;
+	}
+
+	/**
+	 * Set the value of email_verified_at
+	 *
+	 * @return  self
+	 */ 
+	function setEmail_verified_at($email_verified_at) : void
+	{
+		$this->email_verified_at = $email_verified_at;
+	}
+
+	/**
+	 * Get the value of internal_comment
+	 */ 
+	function getInternal_comment()
+	{
+		return $this->internal_comment;
+	}
+
+	/**
+	 * Set the value of internal_comment
+	 *
+	 * @return  self
+	 */ 
+	function setInternal_comment($internal_comment) : void
+	{
+		$this->internal_comment = $internal_comment;
+	}
+
+	/**
+	 * Get the value of lastname
+	 */ 
+	function getLastname()
+	{
+		return $this->lastname;
+	}
+
+	/**
+	 * Set the value of lastname
+	 *
+	 * @return  self
+	 */ 
+	function setLastname($lastname) : void
+	{
+		$this->lastname = $lastname;
+	}
+
+	/**
+	 * Get the value of lingro_student
+	 */ 
+	function getLingro_student()
+	{
+		return $this->lingro_student;
+	}
+
+	/**
+	 * Set the value of lingro_student
+	 *
+	 * @return  self
+	 */ 
+	function setLingro_student($lingro_student) : void
+	{
 		$this->lingro_student = $lingro_student;
 	}
 
-	function setPhone($phone) {
+	/**
+	 * Get the value of locked
+	 */ 
+	function getLocked()
+	{
+		return $this->locked;
+	}
+
+	/**
+	 * Set the value of locked
+	 *
+	 * @return  self
+	 */ 
+	function setLocked($locked) : void
+	{
+		$this->locked = $locked;
+	}
+
+	/**
+	 * Get the value of name
+	 */ 
+	function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Set the value of name
+	 *
+	 * @return  self
+	 */ 
+	function setName($name) : void
+	{
+		$this->name = $name;
+	}
+
+	/**
+	 * Get the value of nickname
+	 */ 
+	function getNickname()
+	{
+		return $this->nickname;
+	}
+
+	/**
+	 * Set the value of nickname
+	 *
+	 * @return  self
+	 */ 
+	function setNickname($nickname) : void
+	{
+		$this->nickname = $nickname;
+	}
+
+	/**
+	 * Get the value of password
+	 */ 
+	function getPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Set the value of password
+	 *
+	 * @return  self
+	 */ 
+	function setPassword($password) : void
+	{
+		$this->password = $password;
+	}
+
+	/**
+	 * Get the value of phone
+	 */ 
+	function getPhone()
+	{
+		return $this->phone;
+	}
+
+	/**
+	 * Set the value of phone
+	 *
+	 * @return  self
+	 */ 
+	function setPhone($phone) : void
+	{
 		$this->phone = $phone;
 	}
 
-	function setWhatsapp($whatsapp) {
-		$this->whatsapp = $whatsapp;
+	/**
+	 * Get the value of remember_token
+	 */ 
+	function getRemember_token()
+	{
+		return $this->remember_token;
 	}
 
-	function setCreated($created) {
-		$this->created = $created;
+	/**
+	 * Set the value of remember_token
+	 *
+	 * @return  self
+	 */ 
+	function setRemember_token($remember_token) : void
+	{
+		$this->remember_token = $remember_token;
 	}
 
-	function setCreated_by($created_by) {
-		$this->created_by = $created_by;
-	}
-
-	function setModified($modified) {
-		$this->modified = $modified;
-	}
-
-	function setModified_by($modified_by) {
-		$this->modified_by = $modified_by;
-	}
-
-	function setErased($erased) {
-		$this->erased = $erased;
-	}
-
-	function setDate_erased($date_erased) {
-		$this->date_erased = $date_erased;
-	}	
-	function setAttempts($attempts) {
-		$this->attempts = $attempts;
-	}
-
-	function setBlocked($blocked) {
-		$this->blocked = $blocked;
-	}
-
-	function getLast_login() {
-		return $this->last_login;
-	}
-
-	function getWho_login() {
-		return $this->who_login;
-	}
-
-	function getHash_remember() {
-		return $this->hash_remember;
-	}
-
-	function getSkype() {
+	/**
+	 * Get the value of skype
+	 */ 
+	function getSkype()
+	{
 		return $this->skype;
 	}
 
-	function setLast_login($last_login) {
-		$this->last_login = $last_login;
-	}
-
-	function setWho_login($who_login) {
-		$this->who_login = $who_login;
-	}
-
-	function setHash_remember($hash_remember) {
-		$this->hash_remember = $hash_remember;
-	}
-
-	function setSkype($skype) {
+	/**
+	 * Set the value of skype
+	 *
+	 * @return  self
+	 */ 
+	function setSkype($skype) : void
+	{
 		$this->skype = $skype;
 	}
 
-	function getId_country_live() {
-	    return $this->id_country_live;
+	/**
+	 * Get the value of timezone_id
+	 */ 
+	function getTimezone_id()
+	{
+		return $this->timezone_id;
 	}
 
-	function setId_country_live($id_country_live) {
-	    $this->id_country_live = $id_country_live;
+	/**
+	 * Set the value of timezone_id
+	 *
+	 * @return  self
+	 */ 
+	function setTimezone_id($timezone_id) : void
+	{
+		$this->timezone_id = $timezone_id;
 	}
 
-	function getEmailsReception() {
-	    return $this->emailsReception;
+	/**
+	 * Get the value of updated_at
+	 */ 
+	function getUpdated_at()
+	{
+		return $this->updated_at;
 	}
 
-	function setEmailsReception($emailsReception) {
-	    $this->emailsReception = $emailsReception;
+	/**
+	 * Set the value of updated_at
+	 *
+	 * @return  self
+	 */ 
+	function setUpdated_at($updated_at) : void
+	{
+		$this->updated_at = $updated_at;
 	}
 
-	function getInternal_comment() {
-	    return $this->internal_comment;
+	/**
+	 * Get the value of url_photo
+	 */ 
+	function getUrl_photo()
+	{
+		return $this->url_photo;
 	}
 
-	function setInternal_comment($internal_comment) {
-	    $this->internal_comment = $internal_comment;
+	/**
+	 * Set the value of url_photo
+	 *
+	 * @return  self
+	 */ 
+	function setUrl_photo($url_photo) : void
+	{
+		$this->url_photo = $url_photo;
 	}
 
-
-	function getCoach_flex_assigned() {
-	    return $this->coach_flex_assigned;
+	/**
+	 * Get the value of whatsapp
+	 */ 
+	function getWhatsapp()
+	{
+		return $this->whatsapp;
 	}
 
-	function setCoach_flex_assigned($coach_flex_assigned) {
-	    $this->coach_flex_assigned = $coach_flex_assigned;
+	/**
+	 * Set the value of whatsapp
+	 *
+	 * @return  self
+	 */ 
+	function setWhatsapp($whatsapp) : void
+	{
+		$this->whatsapp = $whatsapp;
 	}
-
-	function getCoach_pagador() {
-	    return $this->coach_pagador;
-	}
-
-	function setCoach_pagador($coach_pagador) {
-	    $this->coach_pagador = $coach_pagador;
-	}
-
-        function getCoach_level() {
-            return $this->coach_level;
-        }
-
-        function setCoach_level($coach_level): void {
-            $this->coach_level = $coach_level;
-        }
-
-        function getEmailsMarketing() {
-            return $this->emailsMarketing;
-        }
-
-        function setEmailsMarketing($emailsMarketing): void {
-            $this->emailsMarketing = $emailsMarketing;
-        }
-
-	
 }
 
 

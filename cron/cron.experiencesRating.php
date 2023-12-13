@@ -58,17 +58,17 @@ $model = new experiencesModel();
 $users = new experiencesUsersModel();
 $usersPublic = new experiencesUsersPublicModel();
 
-$where = "day='".$todayBefore->format('Y-m-d')."'";
-$joinExp = " LEFT JOIN lm_users ON(lm_users.id_user=lm_experiences.coach_id)";
-$result_model = $model->select($where,'','lm_experiences.*,lm_users.name_user,lm_users.lastname_user',$joinExp);
+$where = "CAST(start as date) = '".$todayBefore->format('Y-m-d')."'";
+$joinExp = " LEFT JOIN user ON experience.coach_id = user.id";
+$result_model = $model->select($where,'','experience.*,user.name as name_user,user.lastname as lastname_user',$joinExp);
 
 foreach ($result_model as $exp) {
     
-    $join = " LEFT JOIN lm_users ON(lm_users.id_user=lm_experiences_users.user_id)";
-    $result_users = $users->select("experience_id=$exp->id_experience AND attendance=1","","lm_users.name_user,lm_users.lastname_user,lm_users.email",$join);
+    $join = " LEFT JOIN user ON experience_register.user_id = user.id";
+    $result_users = $users->select("experience_id=$exp->id_experience AND attendance=1","","user.name as name_user,user.lastname as lastname_user,user.email",$join);
     
-    foreach($result_users as $us){
-        
+    foreach ($result_users as $us) {
+
         $bodyUser = "Hello $us->name_user!";
         $bodyUser.= '<p>We hope the Experience <strong>'.$exp->title.'</strong> with <strong>'.$exp->name_user.' '.$exp->lastname_user.'</strong> was as fun for you to attend as it was for us to make!</p>';
         $bodyUser.= '<p>If you would like to show some love for our coaches you can:</p>';
@@ -84,25 +84,20 @@ foreach ($result_model as $exp) {
         //echo $bodyUser;
         $address = array("$us->email");
         
-        if(sendMailExperiences($address, 'Rate LinguaMeeting Experience', $bodyUser)){
-            
+        if ( sendMailExperiences($address, 'Rate LinguaMeeting Experience', $bodyUser) ) {
             $log->setType_msg('INFO');
             $log->setMsg('Email sent to: ' . $us->email);
             $log->writeLog();
-        }else{
-            
+        } else {
             $log->setType_msg('ERROR');
             $log->setMsg('There was an error with the email: ' . $us->email);
             $log->writeLog();
-            
         }
-
-        
     }
     
-    $result_public = $usersPublic->select("experience_id=$exp->id_experience");
+    $result_public = $usersPublic->select("experience_id=$exp->id_experience","","user.name as name_user,user.lastname as lastname_user,user.email",$join);
     
-    foreach($result_public as $us){
+    foreach ($result_public as $us) {
         
         $bodyUser = "Hello $us->name!";
         $bodyUser.= '<p>We hope the Experience <strong>'.$exp->title.'</strong> with <strong>'.$exp->name_user.' '.$exp->lastname_user.'</strong> was as fun for you to attend as it was for us to make!</p>';
@@ -116,24 +111,18 @@ foreach ($result_model as $exp) {
         $bodyUser .= '<br><br><img style="float:left;margin-right:20px;margin-top:20px;height:40px;width:180px;" '
                 . 'src="'._URL_LOCATION_LINGUAMEETING.'images/logo.png" alt="LinguaMeeting" title="LinguaMeeting">';
 
-
         //echo $bodyUser;
         $address = array("$us->email");
-        if(sendMailExperiences($address, 'Rate LinguaMeeting Experience', $bodyUser)){
-            
+        if ( sendMailExperiences($address, 'Rate LinguaMeeting Experience', $bodyUser) ) {
             $log->setType_msg('INFO');
             $log->setMsg('Email sent to: ' . $us->email);
             $log->writeLog();
-        }else{
-            
+        } else {
             $log->setType_msg('ERROR');
             $log->setMsg('There was an error with the email: ' . $us->email);
             $log->writeLog();
-            
         }
-        
     }
-    
 }
 
 $log->setType_msg('INFO');

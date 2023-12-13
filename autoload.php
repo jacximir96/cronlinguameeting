@@ -243,10 +243,11 @@ function autoload($class_name) {
 	include_once dirname(__FILE__) . '/models/studentsPaymentMakeModel.php';
     }
     elseif ($class_name == 'studentsPaymentAuxModel') {
-        include_once dirname(__FILE__) . '/models/studentsPaymentAuxModel.php';
+    include_once dirname(__FILE__) . '/models/studentsPaymentAuxModel.php';
     }
-    
-    
+    elseif ($class_name == 'enrollmentSessionModel') {
+    include_once dirname(__FILE__) . '/models/enrollmentSessionModel.php';
+    }
 }
 
 spl_autoload_register('autoload');

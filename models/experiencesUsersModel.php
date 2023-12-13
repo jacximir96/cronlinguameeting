@@ -11,24 +11,20 @@
  */
 class experiencesUsersModel extends baseModel {
 
-    private $user_id = 0;
+    private $id = 0;
     private $experience_id = 0;
-    private $type_payment = '';
-    private $value = 0;
-    private $payment_id = '';
-    private $payer_id = '';
-    private $state = '';
-    private $email_payment = '';
-    private $date_payment = '';
-    private $date_register = '';
-    private $date_join = '';
-    private $paid = 0;
+    private $user_id = 0;
+    private $registered_at = '';
+    private $joined_at = '';
     private $attendance = 0;
+    private $created_at = '';
+    private $updated_at = '';
+    private $deleted_at = '';
 
     function __construct() {
 
         parent::__construct();
-        parent::setTable('lm_experiences_users');
+        parent::setTable('experience_register');
     }
 
     public function select($where = '', $as = '', $select = '*', $join = '') {
@@ -38,17 +34,6 @@ class experiencesUsersModel extends baseModel {
     public function add($indices = '', $valores = '') {
 
         $first = true;
-
-        if (!empty($this->user_id)) {
-            if ($first) {
-                $indices .= "user_id";
-                $valores .= $this->user_id;
-                $first = false;
-            } else {
-                $indices .= ",user_id";
-                $valores .= "," . $this->user_id;
-            }
-        }
 
         if (!empty($this->experience_id)) {
             if ($first) {
@@ -61,117 +46,38 @@ class experiencesUsersModel extends baseModel {
             }
         }
 
-        if (!empty($this->type_payment)) {
+        if (!empty($this->user_id)) {
             if ($first) {
-                $indices .= "type_payment";
-                $valores .= "'" . $this->type_payment . "'";
+                $indices .= "user_id";
+                $valores .= $this->user_id;
                 $first = false;
             } else {
-                $indices .= ",type_payment";
-                $valores .= ",'" . $this->type_payment . "'";
+                $indices .= ",user_id";
+                $valores .= "," . $this->user_id;
             }
         }
 
-        if (!empty($this->paid)) {
+        if (!empty($this->registered_at)) {
             if ($first) {
-                $indices .= "paid";
-                $valores .= $this->paid;
+                $indices .= "registered_at";
+                $valores .= "'" . $this->registered_at . "'";
                 $first = false;
             } else {
-                $indices .= ",paid";
-                $valores .= "," . $this->paid;
+                $indices .= ",registered_at";
+                $valores .= ",'" . $this->registered_at . "'";
             }
         }
 
-        if (!empty($this->value)) {
+        if (!empty($this->joined_at)) {
             if ($first) {
-                $indices .= "value";
-                $valores .= "'" . $this->value . "'";
+                $indices .= "joined_at";
+                $valores .= "'" . $this->joined_at . "'";
                 $first = false;
             } else {
-                $indices .= ",value";
-                $valores .= ",'" . $this->value . "'";
+                $indices .= ",joined_at";
+                $valores .= ",'" . $this->joined_at . "'";
             }
         }
-
-        if (!empty($this->payment_id)) {
-            if ($first) {
-                $indices .= "payment_id";
-                $valores .= "'" . $this->payment_id . "'";
-                $first = false;
-            } else {
-                $indices .= ",payment_id";
-                $valores .= ",'" . $this->payment_id . "'";
-            }
-        }
-
-        if (!empty($this->payer_id)) {
-            if ($first) {
-                $indices .= "payer_id";
-                $valores .= "'" . $this->payer_id . "'";
-                $first = false;
-            } else {
-                $indices .= ",payer_id";
-                $valores .= ",'" . $this->payer_id . "'";
-            }
-        }
-
-        if (!empty($this->state)) {
-            if ($first) {
-                $indices .= "state";
-                $valores .= "'" . $this->state . "'";
-                $first = false;
-            } else {
-                $indices .= ",state";
-                $valores .= ",'" . $this->state . "'";
-            }
-        }
-
-        if (!empty($this->email_payment)) {
-            if ($first) {
-                $indices .= "email_payment";
-                $valores .= "'" . $this->email_payment . "'";
-                $first = false;
-            } else {
-                $indices .= ",email_payment";
-                $valores .= ",'" . $this->email_payment . "'";
-            }
-        }
-
-        if (!empty($this->date_payment)) {
-            if ($first) {
-                $indices .= "date_payment";
-                $valores .= "'" . $this->date_payment . "'";
-                $first = false;
-            } else {
-                $indices .= ",date_payment";
-                $valores .= ",'" . $this->date_payment . "'";
-            }
-        }
-
-        if (!empty($this->date_register)) {
-            if ($first) {
-                $indices .= "date_register";
-                $valores .= "'" . $this->date_register . "'";
-                $first = false;
-            } else {
-                $indices .= ",date_register";
-                $valores .= ",'" . $this->date_register . "'";
-            }
-        }
-
-        if (!empty($this->date_join)) {
-            if ($first) {
-                $indices .= "date_join";
-                $valores .= "'" . $this->date_join . "'";
-                $first = false;
-            } else {
-                $indices .= ",date_join";
-                $valores .= ",'" . $this->date_join . "'";
-            }
-        }
-
-   
 
         if (!empty($this->attendance)) {
             if ($first) {
@@ -184,6 +90,39 @@ class experiencesUsersModel extends baseModel {
             }
         }
 
+        if (!empty($this->created_at)) {
+            if ($first) {
+                $indices .= "created_at";
+                $valores .= "'" . $this->created_at . "'";
+                $first = false;
+            } else {
+                $indices .= ",created_at";
+                $valores .= ",'" . $this->created_at . "'";
+            }
+        }
+
+        if (!empty($this->updated_at)) {
+            if ($first) {
+                $indices .= "updated_at";
+                $valores .= "'" . $this->updated_at . "'";
+                $first = false;
+            } else {
+                $indices .= ",updated_at";
+                $valores .= ",'" . $this->updated_at . "'";
+            }
+        }
+
+        if (!empty($this->deleted_at)) {
+            if ($first) {
+                $indices .= "deleted_at";
+                $valores .= "'" . $this->deleted_at . "'";
+                $first = false;
+            } else {
+                $indices .= ",deleted_at";
+                $valores .= ",'" . $this->deleted_at . "'";
+            }
+        }
+
         return parent::add($indices, $valores);
     }
 
@@ -192,21 +131,21 @@ class experiencesUsersModel extends baseModel {
         $where = "experience_id=$this->experience_id AND user_id=$this->user_id";
         $first = true;
 
-        if (!empty($this->paid)) {
+        if (!empty($this->registered_at)) {
             if ($first) {
-                $campos .= " paid=" . $this->title;
+                $campos .= " registered_at='" . $this->registered_at . "'";
                 $first = false;
             } else {
-                $campos .= ", paid=" . $this->paid;
+                $campos .= ", registered_at='" . $this->registered_at . "'";
             }
         }
 
-        if (!empty($this->date_register)) {
+        if (!empty($this->joined_at)) {
             if ($first) {
-                $campos .= " date_register='" . $this->date_register . "'";
+                $campos .= " joined_at='" . $this->joined_at . "'";
                 $first = false;
             } else {
-                $campos .= ", date_register='" . $this->date_register . "'";
+                $campos .= ", joined_at='" . $this->joined_at . "'";
             }
         }
 
@@ -219,86 +158,37 @@ class experiencesUsersModel extends baseModel {
             }
         }
 
-        if (!empty($this->type_payment)) {
+        if (!empty($this->created_at)) {
             if ($first) {
-                $campos .= " type_payment='" . $this->type_payment . "'";
+                $campos .= " created_at='" . $this->created_at . "'";
                 $first = false;
             } else {
-                $campos .= ", type_payment='" . $this->type_payment . "'";
+                $campos .= ", created_at='" . $this->created_at . "'";
             }
         }
 
-        if (!empty($this->value)) {
+        if (!empty($this->updated_at)) {
             if ($first) {
-                $campos .= " value='" . $this->value . "'";
+                $campos .= " updated_at='" . $this->updated_at . "'";
                 $first = false;
             } else {
-                $campos .= ", value='" . $this->value . "'";
+                $campos .= ", updated_at='" . $this->updated_at . "'";
             }
         }
 
-        if (!empty($this->payment_id)) {
+        if (!empty($this->deleted_at)) {
             if ($first) {
-                $campos .= " payment_id='" . $this->payment_id . "'";
+                $campos .= " deleted_at='" . $this->deleted_at . "'";
                 $first = false;
             } else {
-                $campos .= ", payment_id='" . $this->payment_id . "'";
+                $campos .= ", deleted_at='" . $this->deleted_at . "'";
             }
         }
-
-        if (!empty($this->payer_id)) {
-            if ($first) {
-                $campos .= " payer_id='" . $this->payer_id . "'";
-                $first = false;
-            } else {
-                $campos .= ", payer_id='" . $this->payer_id . "'";
-            }
-        }
-
-        if (!empty($this->state)) {
-            if ($first) {
-                $campos .= " state='" . $this->state . "'";
-                $first = false;
-            } else {
-                $campos .= ", state='" . $this->state . "'";
-            }
-        }
-
-        if (!empty($this->email_payment)) {
-            if ($first) {
-                $campos .= " email_payment='" . $this->email_payment . "'";
-                $first = false;
-            } else {
-                $campos .= ", email_payment='" . $this->email_payment . "'";
-            }
-        }
-
-        if (!empty($this->date_payment)) {
-            if ($first) {
-                $campos .= " date_payment='" . $this->date_payment . "'";
-                $first = false;
-            } else {
-                $campos .= ", date_payment='" . $this->date_payment . "'";
-            }
-        }
-
-        
-        if (!empty($this->date_join)) {
-            if ($first) {
-                $campos .= " date_join='" . $this->date_join . "'";
-                $first = false;
-            } else {
-                $campos .= ", date_join='" . $this->date_join . "'";
-            }
-        }
-
 
         return parent::update($campos, $where);
     }
 
-    public function updatePaid() {
-
-
+    /*public function updatePaid() {
         $where = "experience_id=$this->experience_id AND user_id=$this->user_id";
         $first = true;
 
@@ -375,13 +265,10 @@ class experiencesUsersModel extends baseModel {
             }
         }
 
-
-
-
         return parent::update($campos, $where);
-    }
+    }*/
     
-    public function updateJoin(){
+    /*public function updateJoin() {
         
         $where = "experience_id=$this->experience_id AND user_id=$this->user_id";
         $first = true;
@@ -406,119 +293,169 @@ class experiencesUsersModel extends baseModel {
 
         return parent::update($campos, $where);
         
-    }
-    
-    
+    }*/
 
-    function getUser_id() {
-        return $this->user_id;
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 
-    function getExperience_id() {
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id) : void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get the value of experience_id
+     */ 
+    public function getExperience_id()
+    {
         return $this->experience_id;
     }
 
-    function getType_payment() {
-        return $this->type_payment;
-    }
-
-    function getValue() {
-        return $this->value;
-    }
-
-    function getPayment_id() {
-        return $this->payment_id;
-    }
-
-    function getPayer_id() {
-        return $this->payer_id;
-    }
-
-    function getState() {
-        return $this->state;
-    }
-
-    function getEmail_payment() {
-        return $this->email_payment;
-    }
-
-    function getDate_payment() {
-        return $this->date_payment;
-    }
-
-    function getDate_register() {
-        return $this->date_register;
-    }
-
-    function getDate_join() {
-        return $this->date_join;
-    }
-
-
-    function getPaid() {
-        return $this->paid;
-    }
-
-    function getAttendance() {
-        return $this->attendance;
-    }
-
-    function setUser_id($user_id): void {
-        $this->user_id = $user_id;
-    }
-
-    function setExperience_id($experience_id): void {
+    /**
+     * Set the value of experience_id
+     *
+     * @return  self
+     */ 
+    public function setExperience_id($experience_id) : void
+    {
         $this->experience_id = $experience_id;
     }
 
-    function setType_payment($type_payment): void {
-        $this->type_payment = $type_payment;
+    /**
+     * Get the value of user_id
+     */ 
+    public function getUser_id()
+    {
+        return $this->user_id;
     }
 
-    function setValue($value): void {
-        $this->value = $value;
+    /**
+     * Set the value of user_id
+     *
+     * @return  self
+     */ 
+    public function setUser_id($user_id) : void
+    {
+        $this->user_id = $user_id;
     }
 
-    function setPayment_id($payment_id): void {
-        $this->payment_id = $payment_id;
+    /**
+     * Get the value of registered_at
+     */ 
+    public function getRegistered_at()
+    {
+        return $this->registered_at;
     }
 
-    function setPayer_id($payer_id): void {
-        $this->payer_id = $payer_id;
+    /**
+     * Set the value of registered_at
+     *
+     * @return  self
+     */ 
+    public function setRegistered_at($registered_at) : void
+    {
+        $this->registered_at = $registered_at;
     }
 
-    function setState($state): void {
-        $this->state = $state;
+    /**
+     * Get the value of joined_at
+     */ 
+    public function getJoined_at()
+    {
+        return $this->joined_at;
     }
 
-    function setEmail_payment($email_payment): void {
-        $this->email_payment = $email_payment;
+    /**
+     * Set the value of joined_at
+     *
+     * @return  self
+     */ 
+    public function setJoined_at($joined_at) : void
+    {
+        $this->joined_at = $joined_at;
     }
 
-    function setDate_payment($date_payment): void {
-        $this->date_payment = $date_payment;
+    /**
+     * Get the value of attendance
+     */ 
+    public function getAttendance()
+    {
+        return $this->attendance;
     }
 
-    function setDate_register($date_register): void {
-        $this->date_register = $date_register;
-    }
-
-    function setDate_join($date_join): void {
-        $this->date_join = $date_join;
-    }
-
- 
-
-    function setPaid($paid): void {
-        $this->paid = $paid;
-    }
-
-    function setAttendance($attendance): void {
+    /**
+     * Set the value of attendance
+     *
+     * @return  self
+     */ 
+    public function setAttendance($attendance) : void
+    {
         $this->attendance = $attendance;
     }
 
+    /**
+     * Get the value of created_at
+     */ 
+    public function getCreated_at()
+    {
+        return $this->created_at;
+    }
 
+    /**
+     * Set the value of created_at
+     *
+     * @return  self
+     */ 
+    public function setCreated_at($created_at) : void
+    {
+        $this->created_at = $created_at;
+    }
 
+    /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the value of updated_at
+     *
+     * @return  self
+     */ 
+    public function setUpdated_at($updated_at) : void
+    {
+        $this->updated_at = $updated_at;
+    }
+
+    /**
+     * Get the value of deleted_at
+     */ 
+    public function getDeleted_at()
+    {
+        return $this->deleted_at;
+    }
+
+    /**
+     * Set the value of deleted_at
+     *
+     * @return  self
+     */ 
+    public function setDeleted_at($deleted_at) : void
+    {
+        $this->deleted_at = $deleted_at;
+    }
 }
 
 ?>

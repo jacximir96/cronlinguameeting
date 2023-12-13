@@ -9,46 +9,46 @@
  */
 class coursesNewModel extends baseModel {
 
-    private $course_id = 0;
-    private $id_university = 0;
-    private $semester_id = 0;
-    private $id_language = 0;
-    private $id_type_course = 0;
-    private $level_id = 0;
-    private $name_course = '';
-    private $students_class = 0;
-    private $duration_course = 0;
+    private $id = 0;
+    private $service_type_id = 0; 
+    private $university_id = 0; 
+    private $language_id = 0; 
+    private $level_id = 0; 
+    private $conversation_package_id = 0;
+    private $conversation_guide_id = 0; 
+    private $semester_id = 0; 
+    private $creator_id = 0; 
+    private $experience_type_id = 0; 
     private $year = 0;
-    private $date_ini_course = '';
-    private $date_end_course = '';
-    private $description = '';
-    private $textbook = '';
-    private $free_course = 0;
-    private $code_offer = '';
-    private $url_survey = '';
-    private $internal_comment = '';
-    private $conversation_guides = 0;
-    private $buy_makeups = 0;
-    private $number_makeups = 0;
-    private $closed = 0;
-    private $date_closed = '';
-    private $coaches_assigned = 0;
-    private $created = null;
-    private $created_by = '';
-    private $modified = null;
-    private $modified_by = '';
-    private $days_holiday = '';
-    private $discount = 0;
-    private $discount_value = '';
-    private $color = '';
-    private $complimentary_makeup = 0;
-    private $blocked = 0;
-    private $blocked_admin = 0;
+    private $start_date = ''; 
+    private $end_date = ''; 
+    private $name = '';
+    private $student_class = 0; 
+    private $duration = 0; 
+    private $is_flex = 0; 
+    private $description = ''; 
+    private $internal_comment = ''; 
+    private $url_survey = ''; 
+    private $is_free = 0; 
+    private $is_lingro = 0; 
+    private $buy_makeups = 0; 
+    private $number_makeups = 0; 
+    private $coaches_assigned = 0; 
+    private $amount_discount = 0; 
+    private $currency_discount = ''; 
+    private $color = ''; 
+    private $complimentary_makeup = 0; 
+    private $is_blocked = 0; 
+    private $is_blocked_admin = 0; 
+    private $closed_date = ''; 
+    private $created_at = ''; 
+    private $updated_at = ''; 
+    private $deleted_at = '';
 
     function __construct() {
 
         parent::__construct();
-        parent::setTable('lm_courses_new');
+        parent::setTable('course');
     }
 
     public function select($where = '', $as = '', $select = '*', $join = '') {
@@ -59,36 +59,36 @@ class coursesNewModel extends baseModel {
 
         $first = true;
 
-        if (!empty($this->id_university)) {
+        if (!empty($this->university_id)) {
             if ($first) {
-                $indices .= "id_university";
-                $valores .= $this->id_university;
+                $indices .= "university_id";
+                $valores .= $this->university_id;
                 $first = false;
             } else {
-                $indices .= ",id_university";
-                $valores .= "," . $this->id_university;
+                $indices .= ",university_id";
+                $valores .= "," . $this->university_id;
             }
         }
 
-        if (!empty($this->id_language)) {
+        if (!empty($this->language_id)) {
             if ($first) {
-                $indices .= "id_language";
-                $valores .= $this->id_language;
+                $indices .= "language_id";
+                $valores .= $this->language_id;
                 $first = false;
             } else {
-                $indices .= ",id_language";
-                $valores .= "," . $this->id_language;
+                $indices .= ",language_id";
+                $valores .= "," . $this->language_id;
             }
         }
 
-        if (!empty($this->id_type_course)) {
+        if (!empty($this->service_type_id)) {
             if ($first) {
-                $indices .= "id_type_course";
-                $valores .= $this->id_type_course;
+                $indices .= "service_type_id";
+                $valores .= $this->service_type_id;
                 $first = false;
             } else {
-                $indices .= ",id_type_course";
-                $valores .= "," . $this->id_type_course;
+                $indices .= ",service_type_id";
+                $valores .= "," . $this->service_type_id;
             }
         }
 
@@ -115,37 +115,37 @@ class coursesNewModel extends baseModel {
         }
 
 
-        if (!empty($this->name_course)) {
+        if (!empty($this->name)) {
             if ($first) {
-                $indices .= "name_course";
-                $valores .= "'" . $this->name_course . "'";
+                $indices .= "name";
+                $valores .= "'" . $this->name . "'";
                 $first = false;
             } else {
-                $indices .= ",name_course";
-                $valores .= ",'" . $this->name_course . "'";
+                $indices .= ",name";
+                $valores .= ",'" . $this->name . "'";
             }
         }
 
-        if (!empty($this->students_class)) {
+        if (!empty($this->student_class)) {
             if ($first) {
-                $indices .= "students_class";
-                $valores .= $this->students_class;
+                $indices .= "student_class";
+                $valores .= $this->student_class;
                 $first = false;
             } else {
-                $indices .= ",students_class";
-                $valores .= "," . $this->students_class;
+                $indices .= ",student_class";
+                $valores .= "," . $this->student_class;
             }
         }
 
 
-        if (!empty($this->duration_course)) {
+        if (!empty($this->duration)) {
             if ($first) {
-                $indices .= "duration_course";
-                $valores .= $this->duration_course;
+                $indices .= "duration";
+                $valores .= $this->duration;
                 $first = false;
             } else {
-                $indices .= ",duration_course";
-                $valores .= "," . $this->duration_course;
+                $indices .= ",duration";
+                $valores .= "," . $this->duration;
             }
         }
 
@@ -160,26 +160,26 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if (!empty($this->date_ini_course)) {
+        if (!empty($this->start_date)) {
             if ($first) {
-                $indices .= "date_ini_course";
-                $valores .= "'" . $this->date_ini_course . "'";
+                $indices .= "start_date";
+                $valores .= "'" . $this->start_date . "'";
                 $first = false;
             } else {
-                $indices .= ",date_ini_course";
-                $valores .= ",'" . $this->date_ini_course . "'";
+                $indices .= ",start_date";
+                $valores .= ",'" . $this->start_date . "'";
             }
         }
 
 
-        if (!empty($this->date_end_course)) {
+        if (!empty($this->end_date)) {
             if ($first) {
-                $indices .= "date_end_course";
-                $valores .= "'" . $this->date_end_course . "'";
+                $indices .= "end_date";
+                $valores .= "'" . $this->end_date . "'";
                 $first = false;
             } else {
-                $indices .= ",date_end_course";
-                $valores .= ",'" . $this->date_end_course . "'";
+                $indices .= ",end_date";
+                $valores .= ",'" . $this->end_date . "'";
             }
         }
 
@@ -194,36 +194,36 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if (!empty($this->textbook)) {
+        if (!empty($this->currency_discount)) {
             if ($first) {
-                $indices .= "textbook";
-                $valores .= "'" . $this->textbook . "'";
+                $indices .= "currency_discount";
+                $valores .= "'" . $this->currency_discount . "'";
                 $first = false;
             } else {
-                $indices .= ",textbook";
-                $valores .= ",'" . $this->textbook . "'";
+                $indices .= ",currency_discount";
+                $valores .= ",'" . $this->currency_discount . "'";
             }
         }
 
-        if (!empty($this->code_offer)) {
+        if (!empty($this->is_lingro)) {
             if ($first) {
-                $indices .= "code_offer";
-                $valores .= "'" . $this->code_offer . "'";
+                $indices .= "is_lingro";
+                $valores .= $this->is_lingro;
                 $first = false;
             } else {
-                $indices .= ",code_offer";
-                $valores .= ",'" . $this->code_offer . "'";
+                $indices .= ",is_lingro";
+                $valores .= "," . $this->is_lingro;
             }
         }
 
-        if (!empty($this->free_course)) {
+        if (!empty($this->is_free)) {
             if ($first) {
-                $indices .= "free_course";
-                $valores .= $this->free_course;
+                $indices .= "is_free";
+                $valores .= $this->is_free;
                 $first = false;
             } else {
-                $indices .= ",free_course";
-                $valores .= "," . $this->free_course;
+                $indices .= ",is_free";
+                $valores .= "," . $this->is_free;
             }
         }
 
@@ -249,14 +249,14 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if (!empty($this->conversation_guides)) {
+        if (!empty($this->creator_id)) {
             if ($first) {
-                $indices .= "conversation_guides";
-                $valores .= $this->conversation_guides;
+                $indices .= "creator_id";
+                $valores .= $this->creator_id;
                 $first = false;
             } else {
-                $indices .= ",conversation_guides";
-                $valores .= "," . $this->conversation_guides;
+                $indices .= ",creator_id";
+                $valores .= "," . $this->creator_id;
             }
         }
 
@@ -282,101 +282,55 @@ class coursesNewModel extends baseModel {
             }
         }
 
-
-
-        if (!empty($this->closed)) {
+        if (!empty($this->amount_discount)) {
             if ($first) {
-                $indices .= "closed";
-                $valores .= $this->closed;
+                $indices .= "amount_discount";
+                $valores .= $this->amount_discount;
                 $first = false;
             } else {
-                $indices .= ",closed";
-                $valores .= "," . $this->closed;
+                $indices .= ",amount_discount";
+                $valores .= "," . $this->amount_discount;
             }
         }
 
-        if (!empty($this->date_closed)) {
+        if (!empty($this->created_at)) {
             if ($first) {
-                $indices .= "date_closed";
-                $valores .= "'" . $this->date_closed . "'";
+                $indices .= "created_at";
+                $valores .= "'" . $this->created_at . "'";
                 $first = false;
             } else {
-                $indices .= ",date_closed";
-                $valores .= ",'" . $this->date_closed . "'";
+                $indices .= ",created_at";
+                $valores .= ",'" . $this->created_at . "'";
             }
         }
-
-        if (!empty($this->created)) {
+        if (!empty($this->deleted_at)) {
             if ($first) {
-                $indices .= "created";
-                $valores .= "'" . $this->created . "'";
+                $indices .= "deleted_at";
+                $valores .= "'" . $this->deleted_at . "'";
                 $first = false;
             } else {
-                $indices .= ",created";
-                $valores .= ",'" . $this->created . "'";
+                $indices .= ",deleted_at";
+                $valores .= ",'" . $this->deleted_at . "'";
             }
         }
-        if (!empty($this->created_by)) {
+        if (!empty($this->updated_at)) {
             if ($first) {
-                $indices .= "created_by";
-                $valores .= "'" . $this->created_by . "'";
+                $indices .= "updated_at";
+                $valores .= "'" . $this->updated_at . "'";
                 $first = false;
             } else {
-                $indices .= ",created_by";
-                $valores .= ",'" . $this->created_by . "'";
+                $indices .= ",updated_at";
+                $valores .= ",'" . $this->updated_at . "'";
             }
         }
-        if (!empty($this->modified)) {
+        if (!empty($this->closed_date)) {
             if ($first) {
-                $indices .= "modified";
-                $valores .= "'" . $this->modified . "'";
+                $indices .= "closed_date";
+                $valores .= "'" . $this->closed_date . "'";
                 $first = false;
             } else {
-                $indices .= ",modified";
-                $valores .= ",'" . $this->modified . "'";
-            }
-        }
-        if (!empty($this->modified_by)) {
-            if ($first) {
-                $indices .= "modified_by";
-                $valores .= "'" . $this->modified_by . "'";
-                $first = false;
-            } else {
-                $indices .= ",modified_by";
-                $valores .= ",'" . $this->modified_by . "'";
-            }
-        }
-
-        if (!empty($this->discount_value)) {
-            if ($first) {
-                $indices .= "discount_value";
-                $valores .= "'" . $this->discount_value . "'";
-                $first = false;
-            } else {
-                $indices .= ",discount_value";
-                $valores .= ",'" . $this->discount_value . "'";
-            }
-        }
-
-        if (!empty($this->days_holiday)) {
-            if ($first) {
-                $indices .= "days_holiday";
-                $valores .= "'" . $this->days_holiday . "'";
-                $first = false;
-            } else {
-                $indices .= ",days_holiday";
-                $valores .= ",'" . $this->days_holiday . "'";
-            }
-        }
-
-        if (!empty($this->discount)) {
-            if ($first) {
-                $indices .= "discount";
-                $valores .= "'" . $this->discount . "'";
-                $first = false;
-            } else {
-                $indices .= ",discount";
-                $valores .= ",'" . $this->discount . "'";
+                $indices .= ",closed_date";
+                $valores .= ",'" . $this->closed_date . "'";
             }
         }
 
@@ -391,6 +345,50 @@ class coursesNewModel extends baseModel {
             }
         }
 
+        if (!empty($this->is_flex)) {
+            if ($first) {
+                $indices .= "is_flex";
+                $valores .= $this->is_flex;
+                $first = false;
+            } else {
+                $indices .= ",is_flex";
+                $valores .= "," . $this->is_flex;
+            }
+        }
+
+        if (!empty($this->experience_type_id)) {
+            if ($first) {
+                $indices .= "experience_type_id";
+                $valores .= $this->experience_type_id;
+                $first = false;
+            } else {
+                $indices .= ",experience_type_id";
+                $valores .= "," . $this->experience_type_id;
+            }
+        }
+
+        if (!empty($this->conversation_guide_id)) {
+            if ($first) {
+                $indices .= "conversation_guide_id";
+                $valores .= $this->conversation_guide_id;
+                $first = false;
+            } else {
+                $indices .= ",conversation_guide_id";
+                $valores .= "," . $this->conversation_guide_id;
+            }
+        }
+
+        if (!empty($this->conversation_package_id)) {
+            if ($first) {
+                $indices .= "conversation_package_id";
+                $valores .= $this->conversation_package_id;
+                $first = false;
+            } else {
+                $indices .= ",conversation_package_id";
+                $valores .= "," . $this->conversation_package_id;
+            }
+        }
+
         if ($first) {
             $indices .= "complimentary_makeup";
             $valores .= $this->complimentary_makeup;
@@ -401,12 +399,12 @@ class coursesNewModel extends baseModel {
         }
         
         if ($first) {
-            $indices .= "blocked,blocked_admin";
-            $valores .= $this->blocked . "," . $this->blocked_admin;
+            $indices .= "is_blocked,is_blocked_admin";
+            $valores .= $this->is_blocked . "," . $this->is_blocked_admin;
             $first = false;
         } else {
-            $indices .= ",blocked,blocked_admin";
-            $valores .= "," . $this->blocked . "," . $this->blocked_admin;
+            $indices .= ",is_blocked,is_blocked_admin";
+            $valores .= "," . $this->is_blocked . "," . $this->is_blocked_admin;
         }
 
 
@@ -419,33 +417,60 @@ class coursesNewModel extends baseModel {
 
     public function update($campos = '', $where = '') {
 
-        $where = 'course_id=' . $this->course_id;
+        $where = 'id=' . $this->id;
         $first = true;
 
-        if (!empty($this->id_university)) {
+        if (!empty($this->service_type_id)) {
             if ($first) {
-                $campos .= " id_university=" . $this->id_university;
+                $campos .= " service_type_id=" . $this->service_type_id;
                 $first = false;
             } else {
-                $campos .= ", id_university=" . $this->id_university;
+                $campos .= ", service_type_id=" . $this->service_type_id;
             }
         }
 
-        if (!empty($this->id_language)) {
+        if (!empty($this->university_id)) {
             if ($first) {
-                $campos .= " id_language=" . $this->id_language;
+                $campos .= " university_id=" . $this->university_id;
                 $first = false;
             } else {
-                $campos .= ", id_language=" . $this->id_language;
+                $campos .= ", university_id=" . $this->university_id;
             }
         }
 
-        if (!empty($this->id_type_course)) {
+        if (!empty($this->language_id)) {
             if ($first) {
-                $campos .= " id_type_course=" . $this->id_type_course;
+                $campos .= " language_id=" . $this->language_id;
                 $first = false;
             } else {
-                $campos .= ", id_type_course=" . $this->id_type_course;
+                $campos .= ", language_id=" . $this->language_id;
+            }
+        }
+
+        if (!empty($this->level_id)) {
+            if ($first) {
+                $campos .= " level_id=" . $this->level_id;
+                $first = false;
+            } else {
+                $campos .= ", level_id=" . $this->level_id;
+            }
+        }
+
+        if (!empty($this->conversation_package_id)) {
+            if ($first) {
+                $campos .= " conversation_package_id=" . $this->conversation_package_id;
+                $first = false;
+            } else {
+                $campos .= ", conversation_package_id=" . $this->conversation_package_id;
+            }
+        }
+
+        if (!empty($this->conversation_guide_id)) {
+            if ($first) {
+                $campos .= " conversation_guide_id=" . $this->conversation_guide_id;
+                $first = false;
+            } else {
+                $campos .= ", conversation_guide_id=" . $this->conversation_guide_id;
             }
         }
 
@@ -458,55 +483,84 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if (!empty($this->name_course)) {
+        if (!empty($this->creator_id)) {
             if ($first) {
-                $campos .= " name_course='" . $this->name_course . "'";
+                $campos .= " creator_id=" . $this->creator_id;
                 $first = false;
             } else {
-                $campos .= ", name_course='" . $this->name_course . "'";
+                $campos .= ", creator_id=" . $this->creator_id;
             }
         }
 
-        if (!empty($this->students_class)) {
+        if (!empty($this->experience_type_id)) {
             if ($first) {
-                $campos .= " students_class=" . $this->students_class;
+                $campos .= " experience_type_id=" . $this->experience_type_id;
                 $first = false;
             } else {
-                $campos .= ", students_class=" . $this->students_class;
+                $campos .= ", experience_type_id=" . $this->experience_type_id;
             }
         }
 
-        if (!empty($this->duration_course)) {
+        if (!empty($this->year)) {
             if ($first) {
-                $campos .= " duration_course=" . $this->duration_course;
+                $campos .= " year=" . $this->year;
                 $first = false;
             } else {
-                $campos .= ", duration_course=" . $this->duration_course;
+                $campos .= ", year=" . $this->year;
             }
         }
 
-        if (!empty($this->date_ini_course)) {
+        if (!empty($this->start_date)) {
             if ($first) {
-                $campos .= " date_ini_course='" . $this->date_ini_course . "'";
+                $campos .= " start_date='" . $this->start_date . "'";
                 $first = false;
             } else {
-                $campos .= ", date_ini_course='" . $this->date_ini_course . "'";
+                $campos .= ", start_date='" . $this->start_date . "'";
             }
         }
 
-        if (!empty($this->date_end_course)) {
+        if (!empty($this->end_date)) {
             if ($first) {
-                $campos .= " date_end_course='" . $this->date_end_course . "'";
+                $campos .= " end_date='" . $this->end_date . "'";
                 $first = false;
             } else {
-                $campos .= ", date_end_course='" . $this->date_end_course . "'";
+                $campos .= ", end_date='" . $this->end_date . "'";
             }
-        } else {
+        }
+
+        if (!empty($this->name)) {
             if ($first) {
-                $campos .= " date_end_course=null";
+                $campos .= " name='" . $this->name . "'";
                 $first = false;
             } else {
-                $campos .= ", date_end_course=null";
+                $campos .= ", name='" . $this->name . "'";
+            }
+        }
+
+        if (!empty($this->student_class)) {
+            if ($first) {
+                $campos .= " student_class=" . $this->student_class;
+                $first = false;
+            } else {
+                $campos .= ", student_class=" . $this->student_class;
+            }
+        }
+
+        if (!empty($this->duration)) {
+            if ($first) {
+                $campos .= " duration=" . $this->duration;
+                $first = false;
+            } else {
+                $campos .= ", duration=" . $this->duration;
+            }
+        }
+
+        if (!empty($this->is_flex)) {
+            if ($first) {
+                $campos .= " is_flex=" . $this->is_flex;
+                $first = false;
+            } else {
+                $campos .= ", is_flex=" . $this->is_flex;
             }
         }
 
@@ -519,29 +573,12 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if (!empty($this->textbook)) {
+        if (!empty($this->internal_comment)) {
             if ($first) {
-                $campos .= " textbook='" . $this->textbook . "'";
+                $campos .= " internal_comment='" . $this->internal_comment . "'";
                 $first = false;
             } else {
-                $campos .= ", textbook='" . $this->textbook . "'";
-            }
-        }
-
-        if (!empty($this->modified)) {
-            if ($first) {
-                $campos .= " modified='" . $this->modified . "'";
-                $first = false;
-            } else {
-                $campos .= ", modified='" . $this->modified . "'";
-            }
-        }
-        if (!empty($this->modified_by)) {
-            if ($first) {
-                $campos .= " modified_by='" . $this->modified_by . "'";
-                $first = false;
-            } else {
-                $campos .= ", modified_by='" . $this->modified_by . "'";
+                $campos .= ", internal_comment='" . $this->internal_comment . "'";
             }
         }
 
@@ -554,6 +591,69 @@ class coursesNewModel extends baseModel {
             }
         }
 
+        if (!empty($this->is_free)) {
+            if ($first) {
+                $campos .= " is_free=" . $this->is_free;
+                $first = false;
+            } else {
+                $campos .= ", is_free=" . $this->is_free;
+            }
+        }
+
+        if (!empty($this->is_lingro)) {
+            if ($first) {
+                $campos .= " is_lingro=" . $this->is_lingro;
+                $first = false;
+            } else {
+                $campos .= ", is_lingro=" . $this->is_lingro;
+            }
+        }
+
+        if (!empty($this->buy_makeups)) {
+            if ($first) {
+                $campos .= " buy_makeups=" . $this->buy_makeups;
+                $first = false;
+            } else {
+                $campos .= ", buy_makeups=" . $this->buy_makeups;
+            }
+        }
+
+        if (!empty($this->number_makeups)) {
+            if ($first) {
+                $campos .= " number_makeups=" . $this->number_makeups;
+                $first = false;
+            } else {
+                $campos .= ", number_makeups=" . $this->number_makeups;
+            }
+        }
+
+        if (!empty($this->coaches_assigned)) {
+            if ($first) {
+                $campos .= " coaches_assigned=" . $this->coaches_assigned;
+                $first = false;
+            } else {
+                $campos .= ", coaches_assigned=" . $this->coaches_assigned;
+            }
+        }
+
+        if (!empty($this->amount_discount)) {
+            if ($first) {
+                $campos .= " amount_discount=" . $this->amount_discount;
+                $first = false;
+            } else {
+                $campos .= ", amount_discount=" . $this->amount_discount;
+            }
+        }
+
+        if (!empty($this->currency_discount)) {
+            if ($first) {
+                $campos .= " currency_discount='" . $this->currency_discount . "'";
+                $first = false;
+            } else {
+                $campos .= ", currency_discount='" . $this->currency_discount . "'";
+            }
+        }
+
         if (!empty($this->color)) {
             if ($first) {
                 $campos .= " color='" . $this->color . "'";
@@ -563,19 +663,68 @@ class coursesNewModel extends baseModel {
             }
         }
 
-        if ($first) {
-            $campos .= " code_offer='$this->code_offer', year=$this->year, buy_makeups=$this->buy_makeups, free_course=$this->free_course,"
-                    . "internal_comment='$this->internal_comment',conversation_guides='$this->conversation_guides',number_makeups=$this->number_makeups,"
-                    . "days_holiday='$this->days_holiday',discount=$this->discount,discount_value='$this->discount_value',complimentary_makeup=$this->complimentary_makeup,"
-                    . "blocked_admin=$this->blocked_admin";
-            $first = false;
-        } else {
-            $campos .= ",code_offer='$this->code_offer',year=$this->year, buy_makeups=$this->buy_makeups, free_course=$this->free_course,"
-                    . "internal_comment='$this->internal_comment',conversation_guides='$this->conversation_guides',number_makeups=$this->number_makeups,"
-                    . "days_holiday='$this->days_holiday',discount=$this->discount,discount_value='$this->discount_value',complimentary_makeup=$this->complimentary_makeup,"
-                    . "blocked_admin=$this->blocked_admin";
+        if (!empty($this->complimentary_makeup)) {
+            if ($first) {
+                $campos .= " complimentary_makeup=" . $this->complimentary_makeup;
+                $first = false;
+            } else {
+                $campos .= ", complimentary_makeup=" . $this->complimentary_makeup;
+            }
         }
 
+        if (!empty($this->is_blocked)) {
+            if ($first) {
+                $campos .= " is_blocked=" . $this->is_blocked;
+                $first = false;
+            } else {
+                $campos .= ", is_blocked=" . $this->is_blocked;
+            }
+        }
+
+        if (!empty($this->is_blocked_admin)) {
+            if ($first) {
+                $campos .= " is_blocked_admin=" . $this->is_blocked_admin;
+                $first = false;
+            } else {
+                $campos .= ", is_blocked_admin=" . $this->is_blocked_admin;
+            }
+        }
+
+        if (!empty($this->closed_date)) {
+            if ($first) {
+                $campos .= " closed_date='" . $this->closed_date . "'";
+                $first = false;
+            } else {
+                $campos .= ", closed_date='" . $this->closed_date . "'";
+            }
+        }
+
+        if (!empty($this->created_at)) {
+            if ($first) {
+                $campos .= " created_at='" . $this->created_at . "'";
+                $first = false;
+            } else {
+                $campos .= ", created_at='" . $this->created_at . "'";
+            }
+        }
+
+        if (!empty($this->updated_at)) {
+            if ($first) {
+                $campos .= " updated_at='" . $this->updated_at . "'";
+                $first = false;
+            } else {
+                $campos .= ", updated_at='" . $this->updated_at . "'";
+            }
+        }
+
+        if (!empty($this->deleted_at)) {
+            if ($first) {
+                $campos .= " deleted_at='" . $this->deleted_at . "'";
+                $first = false;
+            } else {
+                $campos .= ", deleted_at='" . $this->deleted_at . "'";
+            }
+        }
 
         return parent::update($campos, $where);
     }
@@ -759,288 +908,635 @@ class coursesNewModel extends baseModel {
         return parent::delete($where);
     }
 
-    function getCourse_id() {
-        return $this->course_id;
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 
-    function getId_university() {
-        return $this->id_university;
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id) : void
+    {
+        $this->id = $id;
     }
 
-    function getSemester_id() {
-        return $this->semester_id;
+    /**
+     * Get the value of service_type_id
+     */ 
+    public function getService_type_id()
+    {
+        return $this->service_type_id;
     }
 
-    function getId_language() {
-        return $this->id_language;
+    /**
+     * Set the value of service_type_id
+     *
+     * @return  self
+     */ 
+    public function setService_type_id($service_type_id) : void
+    {
+        $this->service_type_id = $service_type_id;
     }
 
-    function getId_type_course() {
-        return $this->id_type_course;
+    /**
+     * Get the value of university_id
+     */ 
+    public function getUniversity_id()
+    {
+        return $this->university_id;
     }
 
-    function getLevel_id() {
+    /**
+     * Set the value of university_id
+     *
+     * @return  self
+     */ 
+    public function setUniversity_id($university_id) : void
+    {
+        $this->university_id = $university_id;
+    }
+
+    /**
+     * Get the value of language_id
+     */ 
+    public function getLanguage_id()
+    {
+        return $this->language_id;
+    }
+
+    /**
+     * Set the value of language_id
+     *
+     * @return  self
+     */ 
+    public function setLanguage_id($language_id) : void
+    {
+        $this->language_id = $language_id;
+    }
+
+    /**
+     * Get the value of level_id
+     */ 
+    public function getLevel_id()
+    {
         return $this->level_id;
     }
 
-    function getName_course() {
-        return $this->name_course;
-    }
-
-    function getStudents_class() {
-        return $this->students_class;
-    }
-
-    function getDuration_course() {
-        return $this->duration_course;
-    }
-
-    function getYear() {
-        return $this->year;
-    }
-
-    function getDate_ini_course() {
-        return $this->date_ini_course;
-    }
-
-    function getDate_end_course() {
-        return $this->date_end_course;
-    }
-
-    function getDescription() {
-        return $this->description;
-    }
-
-    function getTextbook() {
-        return $this->textbook;
-    }
-
-    function getFree_course() {
-        return $this->free_course;
-    }
-
-    function getCode_offer() {
-        return $this->code_offer;
-    }
-
-    function getUrl_survey() {
-        return $this->url_survey;
-    }
-
-    function getInternal_comment() {
-        return $this->internal_comment;
-    }
-
-    function getConversation_guides() {
-        return $this->conversation_guides;
-    }
-
-    function getBuy_makeups() {
-        return $this->buy_makeups;
-    }
-
-    function getNumber_makeups() {
-        return $this->number_makeups;
-    }
-
-    function getClosed() {
-        return $this->closed;
-    }
-
-    function getDate_closed() {
-        return $this->date_closed;
-    }
-
-    function getCoaches_assigned() {
-        return $this->coaches_assigned;
-    }
-
-    function getCreated() {
-        return $this->created;
-    }
-
-    function getCreated_by() {
-        return $this->created_by;
-    }
-
-    function getModified() {
-        return $this->modified;
-    }
-
-    function getModified_by() {
-        return $this->modified_by;
-    }
-
-    function setCourse_id($course_id): void {
-        $this->course_id = $course_id;
-    }
-
-    function setId_university($id_university): void {
-        $this->id_university = $id_university;
-    }
-
-    function setSemester_id($semester_id): void {
-        $this->semester_id = $semester_id;
-    }
-
-    function setId_language($id_language): void {
-        $this->id_language = $id_language;
-    }
-
-    function setId_type_course($id_type_course): void {
-        $this->id_type_course = $id_type_course;
-    }
-
-    function setLevel_id($level_id): void {
+    /**
+     * Set the value of level_id
+     *
+     * @return  self
+     */ 
+    public function setLevel_id($level_id) : void
+    {
         $this->level_id = $level_id;
     }
 
-    function setName_course($name_course): void {
-        $this->name_course = $name_course;
+    /**
+     * Get the value of conversation_package_id
+     */ 
+    public function getConversation_package_id()
+    {
+        return $this->conversation_package_id;
     }
 
-    function setStudents_class($students_class): void {
-        $this->students_class = $students_class;
+    /**
+     * Set the value of conversation_package_id
+     *
+     * @return  self
+     */ 
+    public function setConversation_package_id($conversation_package_id) : void
+    {
+        $this->conversation_package_id = $conversation_package_id;
     }
 
-    function setDuration_course($duration_course): void {
-        $this->duration_course = $duration_course;
+    /**
+     * Get the value of conversation_guide_id
+     */ 
+    public function getConversation_guide_id()
+    {
+        return $this->conversation_guide_id;
     }
 
-    function setYear($year): void {
+    /**
+     * Set the value of conversation_guide_id
+     *
+     * @return  self
+     */ 
+    public function setConversation_guide_id($conversation_guide_id) : void
+    {
+        $this->conversation_guide_id = $conversation_guide_id;
+    }
+
+    /**
+     * Get the value of semester_id
+     */ 
+    public function getSemester_id()
+    {
+        return $this->semester_id;
+    }
+
+    /**
+     * Set the value of semester_id
+     *
+     * @return  self
+     */ 
+    public function setSemester_id($semester_id) : void
+    {
+        $this->semester_id = $semester_id;
+    }
+
+    /**
+     * Get the value of creator_id
+     */ 
+    public function getCreator_id()
+    {
+        return $this->creator_id;
+    }
+
+    /**
+     * Set the value of creator_id
+     *
+     * @return  self
+     */ 
+    public function setCreator_id($creator_id) : void
+    {
+        $this->creator_id = $creator_id;
+    }
+
+    /**
+     * Get the value of experience_type_id
+     */ 
+    public function getExperience_type_id()
+    {
+        return $this->experience_type_id;
+    }
+
+    /**
+     * Set the value of experience_type_id
+     *
+     * @return  self
+     */ 
+    public function setExperience_type_id($experience_type_id) : void
+    {
+        $this->experience_type_id = $experience_type_id;
+    }
+
+    /**
+     * Get the value of year
+     */ 
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set the value of year
+     *
+     * @return  self
+     */ 
+    public function setYear($year) : void
+    {
         $this->year = $year;
     }
 
-    function setDate_ini_course($date_ini_course): void {
-        $this->date_ini_course = $date_ini_course;
+    /**
+     * Get the value of start_date
+     */ 
+    public function getStart_date()
+    {
+        return $this->start_date;
     }
 
-    function setDate_end_course($date_end_course): void {
-        $this->date_end_course = $date_end_course;
+    /**
+     * Set the value of start_date
+     *
+     * @return  self
+     */ 
+    public function setStart_date($start_date) : void
+    {
+        $this->start_date = $start_date;
     }
 
-    function setDescription($description): void {
+    /**
+     * Get the value of end_date
+     */ 
+    public function getEnd_date()
+    {
+        return $this->end_date;
+    }
+
+    /**
+     * Set the value of end_date
+     *
+     * @return  self
+     */ 
+    public function setEnd_date($end_date) : void
+    {
+        $this->end_date = $end_date;
+    }
+
+    /**
+     * Get the value of name
+     */ 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the value of name
+     *
+     * @return  self
+     */ 
+    public function setName($name) : void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get the value of student_class
+     */ 
+    public function getStudent_class()
+    {
+        return $this->student_class;
+    }
+
+    /**
+     * Set the value of student_class
+     *
+     * @return  self
+     */ 
+    public function setStudent_class($student_class) : void
+    {
+        $this->student_class = $student_class;
+    }
+
+    /**
+     * Get the value of duration
+     */ 
+    public function getDuration()
+    {
+        return $this->duration;
+    }
+
+    /**
+     * Set the value of duration
+     *
+     * @return  self
+     */ 
+    public function setDuration($duration) : void
+    {
+        $this->duration = $duration;
+    }
+
+    /**
+     * Get the value of is_flex
+     */ 
+    public function getIs_flex()
+    {
+        return $this->is_flex;
+    }
+
+    /**
+     * Set the value of is_flex
+     *
+     * @return  self
+     */ 
+    public function setIs_flex($is_flex) : void
+    {
+        $this->is_flex = $is_flex;
+    }
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description) : void
+    {
         $this->description = $description;
     }
 
-    function setTextbook($textbook): void {
-        $this->textbook = $textbook;
+    /**
+     * Get the value of internal_comment
+     */ 
+    public function getInternal_comment()
+    {
+        return $this->internal_comment;
     }
 
-    function setFree_course($free_course): void {
-        $this->free_course = $free_course;
-    }
-
-    function setCode_offer($code_offer): void {
-        $this->code_offer = $code_offer;
-    }
-
-    function setUrl_survey($url_survey): void {
-        $this->url_survey = $url_survey;
-    }
-
-    function setInternal_comment($internal_comment): void {
+    /**
+     * Set the value of internal_comment
+     *
+     * @return  self
+     */ 
+    public function setInternal_comment($internal_comment) : void
+    {
         $this->internal_comment = $internal_comment;
     }
 
-    function setConversation_guides($conversation_guides): void {
-        $this->conversation_guides = $conversation_guides;
+    /**
+     * Get the value of url_survey
+     */ 
+    public function getUrl_survey()
+    {
+        return $this->url_survey;
     }
 
-    function setBuy_makeups($buy_makeups): void {
+    /**
+     * Set the value of url_survey
+     *
+     * @return  self
+     */ 
+    public function setUrl_survey($url_survey) : void
+    {
+        $this->url_survey = $url_survey;
+    }
+
+    /**
+     * Get the value of is_free
+     */ 
+    public function getIs_free()
+    {
+        return $this->is_free;
+    }
+
+    /**
+     * Set the value of is_free
+     *
+     * @return  self
+     */ 
+    public function setIs_free($is_free) : void
+    {
+        $this->is_free = $is_free;
+    }
+
+    /**
+     * Get the value of is_lingro
+     */ 
+    public function getIs_lingro()
+    {
+        return $this->is_lingro;
+    }
+
+    /**
+     * Set the value of is_lingro
+     *
+     * @return  self
+     */ 
+    public function setIs_lingro($is_lingro) : void
+    {
+        $this->is_lingro = $is_lingro;
+    }
+
+    /**
+     * Get the value of buy_makeups
+     */ 
+    public function getBuy_makeups()
+    {
+        return $this->buy_makeups;
+    }
+
+    /**
+     * Set the value of buy_makeups
+     *
+     * @return  self
+     */ 
+    public function setBuy_makeups($buy_makeups) : void
+    {
         $this->buy_makeups = $buy_makeups;
     }
 
-    function setNumber_makeups($number_makeups): void {
+    /**
+     * Get the value of number_makeups
+     */ 
+    public function getNumber_makeups()
+    {
+        return $this->number_makeups;
+    }
+
+    /**
+     * Set the value of number_makeups
+     *
+     * @return  self
+     */ 
+    public function setNumber_makeups($number_makeups) : void
+    {
         $this->number_makeups = $number_makeups;
     }
 
-    function setClosed($closed): void {
-        $this->closed = $closed;
+    /**
+     * Get the value of coaches_assigned
+     */ 
+    public function getCoaches_assigned()
+    {
+        return $this->coaches_assigned;
     }
 
-    function setDate_closed($date_closed): void {
-        $this->date_closed = $date_closed;
-    }
-
-    function setCoaches_assigned($coaches_assigned): void {
+    /**
+     * Set the value of coaches_assigned
+     *
+     * @return  self
+     */ 
+    public function setCoaches_assigned($coaches_assigned) : void
+    {
         $this->coaches_assigned = $coaches_assigned;
     }
 
-    function setCreated($created): void {
-        $this->created = $created;
+    /**
+     * Get the value of amount_discount
+     */ 
+    public function getAmount_discount()
+    {
+        return $this->amount_discount;
     }
 
-    function setCreated_by($created_by): void {
-        $this->created_by = $created_by;
+    /**
+     * Set the value of amount_discount
+     *
+     * @return  self
+     */ 
+    public function setAmount_discount($amount_discount) : void
+    {
+        $this->amount_discount = $amount_discount;
     }
 
-    function setModified($modified): void {
-        $this->modified = $modified;
+    /**
+     * Get the value of currency_discount
+     */ 
+    public function getCurrency_discount()
+    {
+        return $this->currency_discount;
     }
 
-    function setModified_by($modified_by): void {
-        $this->modified_by = $modified_by;
+    /**
+     * Set the value of currency_discount
+     *
+     * @return  self
+     */ 
+    public function setCurrency_discount($currency_discount) : void
+    {
+        $this->currency_discount = $currency_discount;
     }
 
-    function getDays_holiday() {
-        return $this->days_holiday;
-    }
-
-    function getDiscount() {
-        return $this->discount;
-    }
-
-    function getDiscount_value() {
-        return $this->discount_value;
-    }
-
-    function setDays_holiday($days_holiday): void {
-        $this->days_holiday = $days_holiday;
-    }
-
-    function setDiscount($discount): void {
-        $this->discount = $discount;
-    }
-
-    function setDiscount_value($discount_value): void {
-        $this->discount_value = $discount_value;
-    }
-
-    function getColor() {
+    /**
+     * Get the value of color
+     */ 
+    public function getColor()
+    {
         return $this->color;
     }
 
-    function setColor($color): void {
+    /**
+     * Set the value of color
+     *
+     * @return  self
+     */ 
+    public function setColor($color) : void
+    {
         $this->color = $color;
     }
-    
-    function getComplimentary_makeup() {
+
+    /**
+     * Get the value of complimentary_makeup
+     */ 
+    public function getComplimentary_makeup()
+    {
         return $this->complimentary_makeup;
     }
 
-    function setComplimentary_makeup($complimentary_makeup): void {
+    /**
+     * Set the value of complimentary_makeup
+     *
+     * @return  self
+     */ 
+    public function setComplimentary_makeup($complimentary_makeup) : void
+    {
         $this->complimentary_makeup = $complimentary_makeup;
     }
 
-    function getBlocked() {
-        return $this->blocked;
+    /**
+     * Get the value of is_blocked
+     */ 
+    public function getIs_blocked()
+    {
+        return $this->is_blocked;
     }
 
-    function getBlocked_admin() {
-        return $this->blocked_admin;
+    /**
+     * Set the value of is_blocked
+     *
+     * @return  self
+     */ 
+    public function setIs_blocked($is_blocked) : void
+    {
+        $this->is_blocked = $is_blocked;
     }
 
-    function setBlocked($blocked): void {
-        $this->blocked = $blocked;
+    /**
+     * Get the value of is_blocked_admin
+     */ 
+    public function getIs_blocked_admin()
+    {
+        return $this->is_blocked_admin;
     }
 
-    function setBlocked_admin($blocked_admin): void {
-        $this->blocked_admin = $blocked_admin;
+    /**
+     * Set the value of is_blocked_admin
+     *
+     * @return  self
+     */ 
+    public function setIs_blocked_admin($is_blocked_admin) : void
+    {
+        $this->is_blocked_admin = $is_blocked_admin;
     }
 
+    /**
+     * Get the value of closed_date
+     */ 
+    public function getClosed_date()
+    {
+        return $this->closed_date;
+    }
 
+    /**
+     * Set the value of closed_date
+     *
+     * @return  self
+     */ 
+    public function setClosed_date($closed_date) : void
+    {
+        $this->closed_date = $closed_date;
+    }
 
+    /**
+     * Get the value of created_at
+     */ 
+    public function getCreated_at()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set the value of created_at
+     *
+     * @return  self
+     */ 
+    public function setCreated_at($created_at) : void
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * Get the value of updated_at
+     */ 
+    public function getUpdated_at()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the value of updated_at
+     *
+     * @return  self
+     */ 
+    public function setUpdated_at($updated_at) : void
+    {
+        $this->updated_at = $updated_at;
+    }
+
+    /**
+     * Get the value of deleted_at
+     */ 
+    public function getDeleted_at()
+    {
+        return $this->deleted_at;
+    }
+
+    /**
+     * Set the value of deleted_at
+     *
+     * @return  self
+     */ 
+    public function setDeleted_at($deleted_at) : void
+    {
+        $this->deleted_at = $deleted_at;
+    }
 }
 
 ?>

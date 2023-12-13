@@ -27,34 +27,37 @@ $log = new logsModel();
 $log->setFolder('cron/');
 $log->setFile_name('notSessions.txt');
 
-$students = new studentsCoursesModel();
-
+/*$students = new studentsCoursesModel();
 $where = "lm_students_courses.active=1 AND lm_users.active=1 AND lm_users.erased=0 AND lm_courses_duedates.date_start >= '$todayDate' AND lm_courses_duedates.order_week = 1 ORDER BY lm_courses_duedates.date_start ASC";
-
 $join = " LEFT JOIN lm_users ON(lm_students_courses.id_user=lm_users.id_user)"
     . " LEFT JOIN lm_courses_new ON(lm_courses_new.course_id=lm_students_courses.course_id)"
     . " LEFT JOIN lm_courses_duedates ON(lm_courses_duedates.course_id=lm_students_courses.course_id)";
-
 $select = "lm_users.id_user, lm_users.name_user, lm_users.lastname_user, lm_users.email, lm_users.emailsReception,"
-    . " lm_courses_new.name_course, lm_courses_duedates.date_start, lm_courses_duedates.order_week, lm_courses_duedates.is_makeUp, lm_students_courses.*";
+    . " lm_courses_new.name_course, lm_courses_duedates.date_start, lm_courses_duedates.order_week, lm_courses_duedates.is_makeUp, lm_students_courses.*";*/
 
+$students = new studentsCoursesModel();
+$where =  " enrollment.active=1 AND user.active = 1 AND user.deleted_at IS NULL AND coaching_week.start_date >= '$todayDate' ORDER BY coaching_week.start_date ASC";
+$join =   " LEFT JOIN user ON (enrollment.student_id = user.id)"
+        . " LEFT JOIN section ON (enrollment.section_id = section.id)"
+        . " LEFT JOIN course ON (section.course_id = course.id)"
+        . " LEFT JOIN coaching_week ON (course.id = coaching_week.course_id)";
+$select = " user.id AS id_user, user.name AS name_user, user.lastname AS lastname_user, user.email, user.email_reception AS emailsReception,"
+        . " course.name AS name_course, coaching_week.start_date AS date_start, coaching_week.is_makeup AS is_makeUp, enrollment.*";    
 $result_students = $students->select($where, '', $select, $join);
 
-//echo "<pre>"; echo print_r($result_students); echo "</pre>";
+if ( count($result_students) > 0 ) {
 
-if (count($result_students) > 0) {
+    foreach ( $result_students as $student ) {
 
-    foreach ($result_students as $student) {
+        if ( $student->date_start == $twoBeforeDate ) {
 
-        if ($student->date_start == $twoBeforeDate) {
+            $enrollmentSession = new enrollmentSessionModel();
+            $where_session = "enrollment_session.enrollment_id = " . $student->id."";
+            $select_sessions = "enrollment_session.*";
+            $result_sessions = $enrollmentSession->select($where_session, '', $select_sessions, '');
 
-            $students_sessions = new studentsCourseSessionsNewModel();
-            $where_session = "lm_students_courses_sessions_new.enroll_id=" . $student->enroll_id." AND assigned=1";
-            $select_sessions = "lm_students_courses_sessions_new.*";
-            $result_sessions = $students_sessions->select($where_session, '', $select_sessions, '');
-
-            if (count($result_sessions) == 0) {
-                if ($student->emailsReception == 1) {
+            if ( count( $result_sessions ) == 0 ) {
+                if ( $student->emailsReception == 1 ) {
                     $subject = "Linguameeting not sessions selected";
                     $body = '<div style="font-family:&quot;Cuprum&quot;,sans-serif">';
                     $body .= '<div style="padding-bottom:0.8em;width:45%;margin-right:1%;margin-bottom:1%;background:#fff;
@@ -71,34 +74,26 @@ if (count($result_students) > 0) {
 
                     $address = array($student->email);
 
-                    //$result_email = sendMail($address, $subject, $body);
-
                     $save = new emailsModel();
-                    $save->setId_user_receiver($student->id_user);
-                    $save->setEmail_receiver($student->email);
-                    $save->setBody_mail($body);
-                    $save->setSubject_mail($subject);
+                    $save->setReceiver_id($student->id_user);
+                    $save->setEmail($student->email);
+                    $save->setBody($body);
+                    $save->setSubject($subject);
                     $save->setDate_send_mes($today->format('Y-m-d H:i:s'));
                     $save->setType_message('notSessions');
                     $result = $save->add();
 
-
-                    if ($result) {
-
+                    if ( $result ) {
                         $log->setType_msg('INFO');
                         $log->setMsg('Email save to stack . Object: ' . $student->email);
                         $log->writeLog();
-
                     } else {
-
                         $log->setType_msg('ERROR');
                         $log->setMsg('When saving email for student. Object: ' . json_encode($student));
                         $log->writeLog();
-
                     }
 
                 } else {
-
                     $log->setType_msg('INFO');
                     $log->setMsg('Email not saving to stack because the user has desactivated the email reception. Object: ' . $student->email);
                     $log->writeLog();
@@ -113,6 +108,4 @@ if (count($result_students) > 0) {
 $log->setType_msg('INFO');
 $log->setMsg('CRON NOT SESSIONS EXECUTED');
 $log->writeLog();
-
-
 ?>

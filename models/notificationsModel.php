@@ -10,26 +10,25 @@
  * @author Sandra <wilowi.com>
  */
 class notificationsModel extends baseModel{
-	
-	private $id_notification = 0;
-	private $id_type_not = 0;	
-	private $read = 0;
-	private $data = '';
-	private $dest_user = 0;
-	private $dest_rol = '';
-	private $date_insert = '';
-	private $date_read = '';
-	private $date_erased = '';
-	private $erased = 0;
+
+	private $id = 0;
+	private $notification_type_id = 0;
+	private $notifier_id = 0;
+	private $content = '';
+	private $extra = '';
+	private $notification_at = '';
+	private $created_at = '';
+	private $updated_at = '';
+	private $deleted_at = '';
 	
 	function __construct() {
 		
 		parent::__construct();		
-		parent::setTable('lm_notifications');
+		parent::setTable('notification');
 		
 	}
 	
-	public function select($where = '', $as = '', $select = '*', $join = '') {
+	public function select ($where = '', $as = '', $select = '*', $join = '') {
 		return parent::select($where, $as, $select, $join);
 	}
 
@@ -37,106 +36,93 @@ class notificationsModel extends baseModel{
 		
 		$first = true;
 
-		if (!empty($this->id_notification)) {
+		if (!empty($this->notification_type_id)) {
+            if ($first) {
+                $indices .= "notification_type_id";
+                $valores .= $this->notification_type_id;
+                $first = false;
+            } else {
+                $indices .= ",notification_type_id";
+                $valores .= "," . $this->notification_type_id;
+            }
+        }
+
+		if (!empty($this->notifier_id)) {
+            if ($first) {
+                $indices .= "notifier_id";
+                $valores .= $this->notifier_id;
+                $first = false;
+            } else {
+                $indices .= ",notifier_id";
+                $valores .= "," . $this->notifier_id;
+            }
+        }
+
+		if (!empty($this->content)) {
 			if ($first) {
-				$indices .= "id_notification";
-				$valores .= $this->id_notification;
+				$indices .= "content";
+				$valores .= "'".$this->content."'";
 				$first = false;
 			} else {
-				$indices .= ",id_notification";
-				$valores .= "," . $this->id_notification;
+				$indices .= ",content";
+				$valores .= ",'" . $this->content."'";
 			}
 		}
 
-
-		if (!empty($this->id_type_not)) {
+		if (!empty($this->extra)) {
 			if ($first) {
-				$indices .= "id_type_not";
-				$valores .= $this->id_type_not;
+				$indices .= "extra";
+				$valores .= "'".$this->extra."'";
 				$first = false;
 			} else {
-				$indices .= ",id_type_not";
-				$valores .= "," . $this->id_type_not;
-			}
-		}
-		
-		if (!empty($this->read)) {
-			if ($first) {
-				$indices .= "read";
-				$valores .= $this->read;
-				$first = false;
-			} else {
-				$indices .= ",read";
-				$valores .= "," . $this->read;
+				$indices .= ",extra";
+				$valores .= ",'" . $this->extra."'";
 			}
 		}
 
-		if (!empty($this->data)) {
+		if (!empty($this->notification_at)) {
 			if ($first) {
-				$indices .= "data";
-				$valores .= "'" . $this->data . "'";
+				$indices .= "notification_at";
+				$valores .= "'".$this->notification_at."'";
 				$first = false;
 			} else {
-				$indices .= ",data";
-				$valores .= ",'" . $this->data . "'";
+				$indices .= ",notification_at";
+				$valores .= ",'" . $this->notification_at."'";
+			}
+		}
+		
+		if (!empty($this->created_at)) {
+			if ($first) {
+				$indices .= "created_at";
+				$valores .= "'".$this->created_at."'";
+				$first = false;
+			} else {
+				$indices .= ",created_at";
+				$valores .= ",'" . $this->created_at."'";
 			}
 		}
 
+		if (!empty($this->updated_at)) {
+			if ($first) {
+				$indices .= "updated_at";
+				$valores .= "'".$this->updated_at."'";
+				$first = false;
+			} else {
+				$indices .= ",updated_at";
+				$valores .= ",'" . $this->updated_at."'";
+			}
+		}
 
-		if (!empty($this->dest_user)) {
+		if (!empty($this->deleted_at)) {
 			if ($first) {
-				$indices .= "dest_user";
-				$valores .= $this->dest_user;
+				$indices .= "deleted_at";
+				$valores .= "'".$this->deleted_at."'";
 				$first = false;
 			} else {
-				$indices .= ",dest_user";
-				$valores .= "," . $this->dest_user;
+				$indices .= ",deleted_at";
+				$valores .= ",'" . $this->deleted_at."'";
 			}
 		}
-		
-		if (!empty($this->dest_rol)) {
-			if ($first) {
-				$indices .= "dest_rol";
-				$valores .= $this->dest_rol;
-				$first = false;
-			} else {
-				$indices .= ",dest_rol";
-				$valores .= "," . $this->dest_rol;
-			}
-		}
-		
-		if (!empty($this->date_insert)) {
-			if ($first) {
-				$indices .= "date_insert";
-				$valores .= "'" . $this->date_insert . "'";
-				$first = false;
-			} else {
-				$indices .= ",date_insert";
-				$valores .= ",'" . $this->date_insert . "'";
-			}
-		}
-		
-		if (!empty($this->date_read)) {
-			if ($first) {
-				$indices .= "date_read";
-				$valores .= "'" . $this->date_read . "'";
-				$first = false;
-			} else {
-				$indices .= ",date_read";
-				$valores .= ",'" . $this->date_read . "'";
-			}
-		}
-				
-		if ($first) {
-			$indices .= "erased";
-			$valores .= $this->erased;
-			$first = false;
-		} else {
-			$indices .= ",erased";
-			$valores .= ",".$this->erased;
-		}
-		
-		
 		
 		return parent::add($indices, $valores);
 	}
@@ -145,7 +131,7 @@ class notificationsModel extends baseModel{
 		return parent::update($campos, $where);
 	}
 	
-	public function updateErased($campos='', $where = ''){
+	/*public function updateErased($campos='', $where = '') {
 		
 		$where = "id_notification=".$this->id_notification;
 		
@@ -161,9 +147,9 @@ class notificationsModel extends baseModel{
 		}
 		
 		return parent::update($campos, $where);
-	}
+	}*/
 	
-	public function updateErasedAll($campos='', $where = ''){
+	/*public function updateErasedAll($campos='', $where = '') {
 		
 		$where = "dest_user=".$this->dest_user;
 		
@@ -179,141 +165,220 @@ class notificationsModel extends baseModel{
 		}
 		
 		return parent::update($campos, $where);
-	}
+	}*/
 	
-    public function updateRead($campos = '', $where = '') {
+    /*public function updateRead($campos = '', $where = '') {
 
-	$where = "id_notification=" . $this->id_notification;
-	$first = true;
+		$where = "id_notification=" . $this->id_notification;
+		$first = true;
 
-	if ($first) {
-	    $campos .= " lm_notifications.read='" . $this->read . "'";
-	    $first = false;
-	} else {
-	    $campos .= ", lm_notifications.read='" . $this->read . "'";
-	}
+		if ($first) {
+			$campos .= " lm_notifications.read='" . $this->read . "'";
+			$first = false;
+		} else {
+			$campos .= ", lm_notifications.read='" . $this->read . "'";
+		}
 
-	if (!empty($this->date_read)) {
-	    if ($first) {
-		$campos .= " date_read='" . $this->date_read . "'";
-		$first = false;
-	    } else {
-		$campos .= ", date_read='" . $this->date_read . "'";
-	    }
-	}
+		if (!empty($this->date_read)) {
+			if ($first) {
+			$campos .= " date_read='" . $this->date_read . "'";
+			$first = false;
+			} else {
+			$campos .= ", date_read='" . $this->date_read . "'";
+			}
+		}
 
-	return parent::update($campos, $where);
-    }
+		return parent::update($campos, $where);
+    }*/
 
-    public function updateReadAll($campos = '', $where = '') {
+    /*public function updateReadAll($campos = '', $where = '') {
 
-	$where = "dest_user=" . $this->dest_user;
-	$first = true;
+		$where = "dest_user=" . $this->dest_user;
+		$first = true;
 
-	if ($first) {
-	    $campos .= " lm_notifications.read='" . $this->read . "'";
-	    $first = false;
-	} else {
-	    $campos .= ", lm_notifications.read='" . $this->read . "'";
-	}
+		if ($first) {
+			$campos .= " lm_notifications.read='" . $this->read . "'";
+			$first = false;
+		} else {
+			$campos .= ", lm_notifications.read='" . $this->read . "'";
+		}
 
-	if (!empty($this->date_read)) {
-	    if ($first) {
-		$campos .= " date_read='" . $this->date_read . "'";
-		$first = false;
-	    } else {
-		$campos .= ", date_read='" . $this->date_read . "'";
-	    }
-	}
+		if (!empty($this->date_read)) {
+			if ($first) {
+			$campos .= " date_read='" . $this->date_read . "'";
+			$first = false;
+			} else {
+			$campos .= ", date_read='" . $this->date_read . "'";
+			}
+		}
 
-	return parent::update($campos, $where);
-    }
+		return parent::update($campos, $where);
+    }*/
 
     public function delete($where) {
 		return parent::delete($where);
 	}
 
-	function getId_notification() {
-		return $this->id_notification;
-	}
-	
-	function getDate_erased() {
-	    return $this->date_erased;
-	}
-
-	function setDate_erased($date_erased) {
-	    $this->date_erased = $date_erased;
+	/**
+	 * Get the value of id
+	 */ 
+	public function getId()
+	{
+		return $this->id;
 	}
 
-	
-	function getId_type_not() {
-		return $this->id_type_not;
+	/**
+	 * Set the value of id
+	 *
+	 * @return  self
+	 */ 
+	public function setId($id) : void
+	{
+		$this->id = $id;
 	}
 
-	function getRead() {
-		return $this->read;
+	/**
+	 * Get the value of notification_type_id
+	 */ 
+	public function getNotification_type_id()
+	{
+		return $this->notification_type_id;
 	}
 
-	function getData() {
-		return $this->data;
+	/**
+	 * Set the value of notification_type_id
+	 *
+	 * @return  self
+	 */ 
+	public function setNotification_type_id($notification_type_id) : void
+	{
+		$this->notification_type_id = $notification_type_id;
 	}
 
-	function getDest_user() {
-		return $this->dest_user;
+	/**
+	 * Get the value of notifier_id
+	 */ 
+	public function getNotifier_id()
+	{
+		return $this->notifier_id;
 	}
 
-	function getDest_rol() {
-		return $this->dest_rol;
+	/**
+	 * Set the value of notifier_id
+	 *
+	 * @return  self
+	 */ 
+	public function setNotifier_id($notifier_id) : void
+	{
+		$this->notifier_id = $notifier_id;
 	}
 
-	function getDate_insert() {
-		return $this->date_insert;
+	/**
+	 * Get the value of content
+	 */ 
+	public function getContent()
+	{
+		return $this->content;
 	}
 
-	function getDate_read() {
-		return $this->date_read;
+	/**
+	 * Set the value of content
+	 *
+	 * @return  self
+	 */ 
+	public function setContent($content) : void
+	{
+		$this->content = $content;
 	}
 
-	function getErased() {
-		return $this->erased;
+	/**
+	 * Get the value of extra
+	 */ 
+	public function getExtra()
+	{
+		return $this->extra;
 	}
 
-	function setId_notification($id_notification) {
-		$this->id_notification = $id_notification;
+	/**
+	 * Set the value of extra
+	 *
+	 * @return  self
+	 */ 
+	public function setExtra($extra) : void
+	{
+		$this->extra = $extra;
 	}
 
-	function setId_type_not($id_type_not) {
-		$this->id_type_not = $id_type_not;
+	/**
+	 * Get the value of notification_at
+	 */ 
+	public function getNotification_at()
+	{
+		return $this->notification_at;
 	}
 
-	function setRead($read) {
-		$this->read = $read;
+	/**
+	 * Set the value of notification_at
+	 *
+	 * @return  self
+	 */ 
+	public function setNotification_at($notification_at) : void
+	{
+		$this->notification_at = $notification_at;
 	}
 
-	function setData($data) {
-		$this->data = $data;
+	/**
+	 * Get the value of created_at
+	 */ 
+	public function getCreated_at()
+	{
+		return $this->created_at;
 	}
 
-	function setDest_user($dest_user) {
-		$this->dest_user = $dest_user;
+	/**
+	 * Set the value of created_at
+	 *
+	 * @return  self
+	 */ 
+	public function setCreated_at($created_at) : void
+	{
+		$this->created_at = $created_at;
 	}
 
-	function setDest_rol($dest_rol) {
-		$this->dest_rol = $dest_rol;
+	/**
+	 * Get the value of updated_at
+	 */ 
+	public function getUpdated_at()
+	{
+		return $this->updated_at;
 	}
 
-	function setDate_insert($date_insert) {
-		$this->date_insert = $date_insert;
+	/**
+	 * Set the value of updated_at
+	 *
+	 * @return  self
+	 */ 
+	public function setUpdated_at($updated_at) : void
+	{
+		$this->updated_at = $updated_at;
 	}
 
-	function setDate_read($date_read) {
-		$this->date_read = $date_read;
+	/**
+	 * Get the value of deleted_at
+	 */ 
+	public function getDeleted_at()
+	{
+		return $this->deleted_at;
 	}
 
-	function setErased($erased) {
-		$this->erased = $erased;
+	/**
+	 * Set the value of deleted_at
+	 *
+	 * @return  self
+	 */ 
+	public function setDeleted_at($deleted_at) : void
+	{
+		$this->deleted_at = $deleted_at;
 	}
-
-
 }
 ?>

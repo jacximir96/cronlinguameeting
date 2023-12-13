@@ -18,37 +18,33 @@ $log->setFolder('cron/');
 $log->setFile_name('createMeeting.txt');
 
 $users = new userModel();
-$where = "(lm_users.rol=7 OR lm_users.rol=10) AND lm_users.active=1 AND lm_users.erased=0";
-$join = " LEFT JOIN lm_zoom_users USING(id_user)"
-		. " LEFT JOIN lm_zoom_meetings USING(id_user)";
-$select = "lm_users.id_user as user_id, lm_users.name_user,lm_users.lastname_user,lm_users.email, lm_zoom_users.*, lm_zoom_meetings.id_zoom_meeting";
-$as = "";
-$result_users = $users->select($where, $as, $select, $join);
-
-//echo "<pre>";echo print_r($result_users);echo "</pre>";
+$join = " LEFT JOIN zoom_user ON (user.id = zoom_user.user_id)"
+		. " LEFT JOIN zoom_meeting ON (user.id = zoom_meeting.user_id)";
+$where = " user.active = 1 AND user.deleted_at IS NULL ";
+$select = "user.id as user_id, user.name as name_user, user.lastname as lastname_user, user.email, zoom_user.user_id as id_user,"
+		. " zoom_user.user_zoom_id as id_user_zoom, zoom_user.zoom_email as zoom_mail, zoom_user.pmi, zoom_user.host_id, zoom_meeting.id as id_zoom_meeting";
+$result_users = $users->select($where, '', $select, $join);
 
 $zoom = new zoom();
 $meeting_lm = new zoomMeetingsModel();
-
 $count_meetings_created = 0;
-foreach ($result_users as $key => $userZoom) {	
-	
+
+foreach ($result_users as $key => $userZoom) {
+
 	if(empty($userZoom->id_zoom_meeting)){ // if empty, create the meeting.
-	
 		$meeting_lm->setId_user($userZoom->user_id);
-		
+
 		$info = new stdClass();
 		$info->first_name = $userZoom->name_user;
 		$info->last_name = $userZoom->lastname_user;
 
 		$result_create = $zoom->createMeeting($info, $userZoom->zoom_mail);
 
-		if (!isset($result_create->id)) { // error
+		if (!isset($result_create->id)) {
 			$log->setType_msg('ERROR');
 			$log->setMsg('When creating a zoom meeting with cron - ZOOM ID: ' . $userZoom->zoom_mail . ' Response: ' . json_encode($result_create));
 			$log->writeLog();
 		} else {
-
 			$meeting_lm->setZoom_id($result_create->id);
 			$meeting_lm->setUuid($result_create->uuid);
 			$meeting_lm->setStart_url($result_create->start_url);

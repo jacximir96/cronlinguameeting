@@ -24,7 +24,6 @@ $log->setFolder('cron/');
 $log->setFile_name('experiencesRecordings.txt');
 
 $zoom = new zoom();
-
 $array_chat = array();
 
 //$result_rec = $zoom->getAllMeetingsRecordings($zoom_u->zoom_id);
@@ -72,13 +71,12 @@ foreach ($all->meetings as $result_rec) {
             $date_end_sessionV2 = new DateTime($recording_end, new DateTimeZone('GMT'));
 
             $model_experiences = new experiencesModel();
-            $where = "day BETWEEN '".$todayThree->format('Y-m-d')."' AND '".$today->format('Y-m-d')."'";
+            $where = "CAST(start as date) BETWEEN '".$todayThree->format('Y-m-d')."' AND '".$today->format('Y-m-d')."'";
             $result_exp = $model_experiences->select($where);
 
             //echo print_r($result_st_flex);	
             if (count($result_exp) > 0) {
-
-                $uni = new universityModel();
+                //$uni = new universityModel();
 
                 //modify 5 minutes.
                 //$date_ini_session->modify('-5 minutes');
@@ -95,10 +93,10 @@ foreach ($all->meetings as $result_rec) {
 
                     //echo "entro semanas";
 
-                    $date_week_start = new DateTime($exp->day . ' ' . $exp->hour, new DateTimeZone("America/New_York"));
-                    $date_week_end = new DateTime($exp->day . ' ' . $week->hour_end, new DateTimeZone("America/New_York"));
-                    $date_week_startV2 = new DateTime($exp->day . ' ' . $exp->hour, new DateTimeZone("America/New_York"));
-                    $date_week_endV2 = new DateTime($exp->day . ' ' . $exp->hour_end, new DateTimeZone("America/New_York"));
+                    $date_week_start = new DateTime($exp->start, new DateTimeZone("America/New_York"));
+                    $date_week_end = new DateTime($exp->end, new DateTimeZone("America/New_York"));
+                    $date_week_startV2 = new DateTime($exp->start, new DateTimeZone("America/New_York"));
+                    $date_week_endV2 = new DateTime($exp->end, new DateTimeZone("America/New_York"));
 
                     $date_week_startV2->modify('-5 minutes');
                     $date_week_endV2->modify('+5 minutes');
@@ -106,7 +104,7 @@ foreach ($all->meetings as $result_rec) {
                     //echo print_r($date_week_start);	
                     if ($date_week_start >= $date_ini_session && $date_week_end <= $date_end_session && empty($exp->zoom_video)) {
 
-                        $model_experiences->setId_experience($exp->id_experience);
+                        $model_experiences->setId($exp->id);
                         $model_experiences->setZoom_video($play_url);
                         $result_up_rec = $model_experiences->updateVideo();
 
@@ -121,7 +119,7 @@ foreach ($all->meetings as $result_rec) {
                         }
                     } elseif (( $date_ini_sessionV2 >= $date_week_startV2 && $date_ini_sessionV2 <= $date_week_endV2 ) && ($date_end_sessionV2 >= $date_week_startV2 && $date_end_sessionV2 <= $date_week_endV2) && ($zoom_u->id_user == $week->id_coach) && empty($exp->zoom_video)) {
 
-                        $model_experiences->setId_experience($exp->id_experience);
+                        $model_experiences->setId($exp->id);
                         $model_experiences->setZoom_video($play_url);
                         $result_up_rec = $model_experiences->updateVideo();
 
@@ -135,7 +133,6 @@ foreach ($all->meetings as $result_rec) {
                             $log->writeLog();
                         }
                     }
-
 
                     $date_ini_session->modify('+7 minutes');
                     $date_end_session->modify('-6 minutes');
@@ -152,8 +149,6 @@ foreach ($all->meetings as $result_rec) {
         }
     } // foreach recordings
 }
-
-
 
 $log->setType_msg('INFO');
 $log->setMsg('CRON EXECUTED');

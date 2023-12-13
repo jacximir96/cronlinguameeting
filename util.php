@@ -312,7 +312,7 @@ function sendMail($addresses, $subject, $body, $attach=array()){
             
             return true;
 
-	}else{
+	} else {
 		return true;
 	}
 }
@@ -370,7 +370,7 @@ function sendMailSupport($addresses, $subject, $body, $attach=array(),$from=''){
  * @return boolean
  */
 function sendMailInfo($addresses, $subject, $body, $attach=array()){
-	
+
 	if (_ENVIRONMENT == 'production') {
 
 		$sendmail = new lmMailer();
@@ -651,7 +651,7 @@ function generateSessionsShow($result_coaches_sessions, $weeks, $timeZone) {
 function getRealIP() {
 	
 	$server = filter_input_array(INPUT_SERVER);
-	
+
 	if (!empty($server['HTTP_CLIENT_IP']))
 		return $server['HTTP_CLIENT_IP'];
 

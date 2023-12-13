@@ -10,20 +10,24 @@
  * @author Sandra <wilowi.com>
  */
 class emailsNextModel extends baseModel{	
-	
-	private $id_email = 0;
-	private $id_user_receiver = 0;
-	private $email_receiver = '';
-	private $subject_mail = '';
-	private $body_mail = '';
+
+	private $id = 0;
+	private $receiver_id = 0;
+	private $email = '';
+	private $subject = '';
+	private $body = '';
 	private $attach = '';
-	private $date_send_mes = null;
+	private $date_send_mes = '';
 	private $type_message = '';
+	private $created_at = '';
+	private $updated_at = '';
+	private $deleted_at = '';
+
 	
 	function __construct() {
 
 		parent::__construct();
-		parent::setTable('lm_emails_next');
+		parent::setTable('email_next');
 	}
 	
 	public function select($where = '', $as = '', $select = '*', $join = '') {
@@ -34,47 +38,47 @@ class emailsNextModel extends baseModel{
 		
 		$first = true;
 
-		if (!empty($this->id_user_receiver)) {
+		if (!empty($this->receiver_id)) {
 			if ($first) {
-				$indices .= "id_user_receiver";
-				$values .= $this->id_user_receiver;
+				$indices .= "receiver_id";
+				$values .= $this->receiver_id;
 				$first = false;
 			} else {
-				$indices .= ",id_user_receiver";
-				$values .= "," . $this->id_user_receiver;
+				$indices .= ",receiver_id";
+				$values .= "," . $this->receiver_id;
 			}
 		}
 		
-		if (!empty($this->email_receiver)) {
+		if (!empty($this->email)) {
 			if ($first) {
-				$indices .= "email_receiver";
-				$values .= "'" . $this->email_receiver . "'";
+				$indices .= "email";
+				$values .= "'" . $this->email . "'";
 				$first = false;
 			} else {
-				$indices .= ",email_receiver";
-				$values .= ",'" . $this->email_receiver . "'";
+				$indices .= ",email";
+				$values .= ",'" . $this->email . "'";
 			}
 		}
 
-		if (!empty($this->subject_mail)) {
+		if (!empty($this->subject)) {
 			if ($first) {
-				$indices .= "subject_mail";
-				$values .= "'" . $this->subject_mail . "'";
+				$indices .= "subject";
+				$values .= "'" . $this->subject . "'";
 				$first = false;
 			} else {
-				$indices .= ",subject_mail";
-				$values .= ",'" . $this->subject_mail . "'";
+				$indices .= ",subject";
+				$values .= ",'" . $this->subject . "'";
 			}
 		}
 		
-		if (!empty($this->body_mail)) {
+		if (!empty($this->body)) {
 			if ($first) {
-				$indices .= "body_mail";
-				$values .= "'" . $this->body_mail . "'";
+				$indices .= "body";
+				$values .= "'" . $this->body . "'";
 				$first = false;
 			} else {
-				$indices .= ",body_mail";
-				$values .= ",'" . $this->body_mail . "'";
+				$indices .= ",body";
+				$values .= ",'" . $this->body . "'";
 			}
 		}
 		
@@ -111,80 +115,242 @@ class emailsNextModel extends baseModel{
 				$values .= ",'" . $this->type_message . "'";
 			}
 		}
-		
-		
+
+		if (!empty($this->created_at)) {
+			if ($first) {
+				$indices .= "created_at";
+				$values .= "'" . $this->created_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",created_at";
+				$values .= ",'" . $this->created_at . "'";
+			}
+		}
+
+		if (!empty($this->updated_at)) {
+			if ($first) {
+				$indices .= "updated_at";
+				$values .= "'" . $this->updated_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",updated_at";
+				$values .= ",'" . $this->updated_at . "'";
+			}
+		}
+
+		if (!empty($this->deleted_at)) {
+			if ($first) {
+				$indices .= "deleted_at";
+				$values .= "'" . $this->deleted_at . "'";
+				$first = false;
+			} else {
+				$indices .= ",deleted_at";
+				$values .= ",'" . $this->deleted_at . "'";
+			}
+		}
+
 		return parent::add($indices, $values);
 	}
 
 	public function delete($where) {
 		return parent::delete($where);
 	}
-	
-	function getType_message() {
-		return $this->type_message;
+
+	/**
+	 * Get the value of id
+	 */ 
+	public function getId()
+	{
+		return $this->id;
 	}
 
-	function setType_message($type_message) {
-		$this->type_message = $type_message;
+	/**
+	 * Set the value of id
+	 *
+	 * @return  self
+	 */ 
+	public function setId($id) : void
+	{
+		$this->id = $id;
 	}
 
-		
-	function getId_email() {
-		return $this->id_email;
+	/**
+	 * Get the value of receiver_id
+	 */ 
+	public function getReceiver_id()
+	{
+		return $this->receiver_id;
 	}
 
-	function getId_user_receiver() {
-		return $this->id_user_receiver;
+	/**
+	 * Set the value of receiver_id
+	 *
+	 * @return  self
+	 */ 
+	public function setReceiver_id($receiver_id) : void
+	{
+		$this->receiver_id = $receiver_id;
 	}
 
-	function getEmail_receiver() {
-		return $this->email_receiver;
+	/**
+	 * Get the value of email
+	 */ 
+	public function getEmail()
+	{
+		return $this->email;
 	}
 
-	function getSubject_mail() {
-		return $this->subject_mail;
+	/**
+	 * Set the value of email
+	 *
+	 * @return  self
+	 */ 
+	public function setEmail($email) : void
+	{
+		$this->email = $email;
 	}
 
-	function getBody_mail() {
-		return $this->body_mail;
+	/**
+	 * Get the value of subject
+	 */ 
+	public function getSubject()
+	{
+		return $this->subject;
 	}
 
-	function getAttach() {
+	/**
+	 * Set the value of subject
+	 *
+	 * @return  self
+	 */ 
+	public function setSubject($subject) : void
+	{
+		$this->subject = $subject;
+	}
+
+	/**
+	 * Get the value of body
+	 */ 
+	public function getBody()
+	{
+		return $this->body;
+	}
+
+	/**
+	 * Set the value of body
+	 *
+	 * @return  self
+	 */ 
+	public function setBody($body) : void
+	{
+		$this->body = $body;
+	}
+
+	/**
+	 * Get the value of attach
+	 */ 
+	public function getAttach()
+	{
 		return $this->attach;
 	}
 
-	function getDate_send_mes() {
-		return $this->date_send_mes;
-	}
-
-	function setId_email($id_email) {
-		$this->id_email = $id_email;
-	}
-
-	function setId_user_receiver($id_user_receiver) {
-		$this->id_user_receiver = $id_user_receiver;
-	}
-
-	function setEmail_receiver($email_receiver) {
-		$this->email_receiver = $email_receiver;
-	}
-
-	function setSubject_mail($subject_mail) {
-		$this->subject_mail = $subject_mail;
-	}
-
-	function setBody_mail($body_mail) {
-		$this->body_mail = $body_mail;
-	}
-
-	function setAttach($attach) {
+	/**
+	 * Set the value of attach
+	 *
+	 * @return  self
+	 */ 
+	public function setAttach($attach) : void
+	{
 		$this->attach = $attach;
 	}
 
-	function setDate_send_mes($date_send_mes) {
+	/**
+	 * Get the value of date_send_mes
+	 */ 
+	public function getDate_send_mes()
+	{
+		return $this->date_send_mes;
+	}
+
+	/**
+	 * Set the value of date_send_mes
+	 *
+	 * @return  self
+	 */ 
+	public function setDate_send_mes($date_send_mes) : void
+	{
 		$this->date_send_mes = $date_send_mes;
 	}
 
+	/**
+	 * Get the value of type_message
+	 */ 
+	public function getType_message()
+	{
+		return $this->type_message;
+	}
 
-	
+	/**
+	 * Set the value of type_message
+	 *
+	 * @return  self
+	 */ 
+	public function setType_message($type_message) : void
+	{
+		$this->type_message = $type_message;
+	}
+
+	/**
+	 * Get the value of created_at
+	 */ 
+	public function getCreated_at()
+	{
+		return $this->created_at;
+	}
+
+	/**
+	 * Set the value of created_at
+	 *
+	 * @return  self
+	 */ 
+	public function setCreated_at($created_at) : void
+	{
+		$this->created_at = $created_at;
+	}
+
+	/**
+	 * Get the value of updated_at
+	 */ 
+	public function getUpdated_at()
+	{
+		return $this->updated_at;
+	}
+
+	/**
+	 * Set the value of updated_at
+	 *
+	 * @return  self
+	 */ 
+	public function setUpdated_at($updated_at) : void
+	{
+		$this->updated_at = $updated_at;
+	}
+
+	/**
+	 * Get the value of deleted_at
+	 */ 
+	public function getDeleted_at()
+	{
+		return $this->deleted_at;
+	}
+
+	/**
+	 * Set the value of deleted_at
+	 *
+	 * @return  self
+	 */ 
+	public function setDeleted_at($deleted_at)
+	{
+		$this->deleted_at = $deleted_at;
+	}
 }
